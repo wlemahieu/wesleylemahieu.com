@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+
+  "compilerOptions": {
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "outDir": "./build",
+    "baseUrl": ".",
+    "paths": {
+      "@config/*": ["config/*"],
+      "@routes/*": ["routes/*"],
+      "@store/*": ["store/*"],
+    }
+  },
+
+  "exclude": ["node_modules", "build", "client"]
+}

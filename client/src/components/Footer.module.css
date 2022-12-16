@@ -1,0 +1,43 @@
+.root {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.sponge {
+  height: 4vmin !important;
+  pointer-events: none;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  text-align: center;
+}
+
+.list > li {
+  margin-right: 1rem;
+}
+
+.brandWrapper {
+  margin-top: 1rem;
+}
+
+.brand img {
+  width: 100px;
+  vertical-align: bottom;
+  margin-bottom: 0.2rem;
+}
+
+.cloudflare {
+  margin-bottom: 0.55rem !important;
+}
+
+.gcp {
+  margin-bottom: 0.35rem !important;
+}
+
+.legal {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
