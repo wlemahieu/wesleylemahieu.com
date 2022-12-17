@@ -3,11 +3,6 @@
   margin-top: 4rem;
 }
 
-.sponge {
-  height: 4vmin !important;
-  pointer-events: none;
-}
-
 .list {
   display: flex;
   justify-content: center;
