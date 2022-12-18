@@ -6,11 +6,6 @@ import gcp from '../assets/gcp.svg';
 const Footer = () => {
   return (
     <footer className={styles.root}>
-      <ul className={styles.list}>
-        <li>
-          Coming Soon
-        </li>
-      </ul>
       <div className={styles.brandWrapper}>
         <div className={styles.brand}>
           Protected by&nbsp;
