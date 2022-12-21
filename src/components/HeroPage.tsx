@@ -2,35 +2,36 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import profileImg from './assets/profile.jpg';
-import pugsllcLogo from './assets/pugsllc-logo.png';
-import coinSpongeLogo from './assets/coinsponge-logo.png';
-import axsripoffLogo from './assets/axsripoff-logo.png';
+import profileImg from '@assets/profile.jpg';
+import pugsllcLogo from '@assets/pugsllc-logo.png';
+import coinSpongeLogo from '@assets/coinsponge-logo.png';
+import axsripoffLogo from '@assets/axsripoff-logo.png';
 
 const features = [
   {
     name: 'WesleyLeMahieu.com',
     href: 'https://wesleylemahieu.com',
     description: 'My personal website where I do fun things. ',
-    icon: () => <img style={{ width: '20px'}} src={profileImg} alt="WesleyLemahieu.com image"/>
+    icon: () => <img style={{ width: '20px' }} src={profileImg} alt="WesleyLemahieu.com image" />,
   },
   {
     name: 'PugsLLC.com',
     href: 'https://pugsllc.com',
     description: 'A simple landing page for Pugs, LLC.',
-    icon: () => <img style={{ width: '20px'}} src={pugsllcLogo} alt="PugsLLC.com logo"/>
+    icon: () => <img style={{ width: '20px' }} src={pugsllcLogo} alt="PugsLLC.com logo" />,
   },
   {
     name: 'CoinSponge.com',
     href: 'https://coinsponge.com',
-    description: 'A website for finding crypto related information such as prices, social trends and coins that have real utility.',
-    icon: () => <img style={{ width: '20px'}} src={coinSpongeLogo} alt="CoinSponge.com logo" />
+    description:
+      'A website for finding crypto related information such as prices, social trends and coins that have real utility.',
+    icon: () => <img style={{ width: '20px' }} src={coinSpongeLogo} alt="CoinSponge.com logo" />,
   },
   {
     name: 'AXSRipoff.com',
     href: 'https://axsripoff.com',
     description: 'A website where people can share their frustrating experiences with AXS.com.',
-    icon: () => <img style={{ width: '20px'}} src={axsripoffLogo} alt="AXSRipoff.com logo"/>
+    icon: () => <img style={{ width: '20px' }} src={axsripoffLogo} alt="AXSRipoff.com logo" />,
   },
 ];
 
@@ -46,11 +47,7 @@ const HeroPage = () => {
                   <div className="flex justify-start">
                     <a href="#">
                       <span className="sr-only">Workflow</span>
-                      <img
-                        src={profileImg}
-                        alt=""
-                        width="50px"
-                      />
+                      <img src={profileImg} alt="" width="50px" />
                     </a>
                   </div>
                   <div className="-mr-2 -my-2">
@@ -70,13 +67,17 @@ const HeroPage = () => {
                 enterTo="opacity-100 scale-100"
                 leave="duration-100 ease-in"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95">
-                <Popover.Panel focus static className="absolute top-0 inset-x-0 z-10 p-2 transition transform origin-top-right">
+                leaveTo="opacity-0 scale-95"
+              >
+                <Popover.Panel
+                  focus
+                  static
+                  className="absolute top-0 inset-x-0 z-10 p-2 transition transform origin-top-right"
+                >
                   <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                     <div className="pt-5 pb-6 px-5">
                       <div className="flex items-center justify-between">
-                        <div>
-                        </div>
+                        <div></div>
                         <div className="-mr-2">
                           <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
                             <span className="sr-only">Close menu</span>
@@ -87,7 +88,13 @@ const HeroPage = () => {
                       <div className="mt-6">
                         <nav className="grid gap-y-8">
                           {features.map((item) => (
-                            <a key={item.name} href={item.href} className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50" target="_blank" rel="noreferrer">
+                            <a
+                              key={item.name}
+                              href={item.href}
+                              className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                              target="_blank"
+                              rel="noreferrer"
+                            >
                               <item.icon aria-hidden="true" />
                               <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
                             </a>
@@ -117,7 +124,8 @@ const HeroPage = () => {
                     href="https://pugsllc.com/contact"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                  >
                     Contact me
                   </a>
                 </div>
@@ -126,19 +134,21 @@ const HeroPage = () => {
                     href="https://github.com/wlemahieu?tab=repositories"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50">
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50"
+                  >
                     My Github
                   </a>
                 </div>
               </div>
             </div>
           </div>
-
         </main>
-
       </div>
       <div style={{ textAlign: 'center', marginTop: '.75rem' }}>
-        Like crypto? Check out <a href="https://nano.org" target="_blank" rel="noreferrer" className="font-small text-blue-600">Nano!</a>
+        Like crypto? Check out{' '}
+        <a href="https://nano.org" target="_blank" rel="noreferrer" className="font-small text-blue-600">
+          Nano!
+        </a>
       </div>
     </>
   );
