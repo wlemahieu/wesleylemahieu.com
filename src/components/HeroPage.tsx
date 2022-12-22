@@ -6,14 +6,9 @@ import profileImg from '@assets/profile.jpg';
 import pugsllcLogo from '@assets/pugsllc-logo.png';
 import coinSpongeLogo from '@assets/coinsponge-logo.png';
 import axsripoffLogo from '@assets/axsripoff-logo.png';
+import github from '@assets/github.svg';
 
 const features = [
-  {
-    name: 'WesleyLeMahieu.com',
-    href: 'https://wesleylemahieu.com',
-    description: 'My personal website where I do fun things. ',
-    icon: () => <img style={{ width: '20px' }} src={profileImg} alt="WesleyLemahieu.com image" />,
-  },
   {
     name: 'PugsLLC.com',
     href: 'https://pugsllc.com',
@@ -47,7 +42,7 @@ const HeroPage = () => {
                   <div className="flex justify-start">
                     <a href="#">
                       <span className="sr-only">Workflow</span>
-                      <img src={profileImg} alt="" width="50px" />
+                      <img src={profileImg} alt="" width="60px" />
                     </a>
                   </div>
                   <div className="-mr-2 -my-2">
@@ -113,7 +108,7 @@ const HeroPage = () => {
           <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center">
             <div className="px-4 px-8">
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 text-5xl">
-                <span>Hello, I'm Wes.</span>
+                <span>Hi, I'm Wes.</span>
               </h1>
               <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 text-xl">
                 I love to create things, have two pugs and enjoy traveling.
@@ -136,7 +131,7 @@ const HeroPage = () => {
                     rel="noreferrer"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50"
                   >
-                    My Github
+                    <img src={github} width="20px" style={{ paddingRight: '4px' }} /> My Github
                   </a>
                 </div>
               </div>

@@ -1,10 +1,11 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as THREE from 'three';
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Html, Environment, useGLTF, ContactShadows, OrbitControls } from '@react-three/drei';
 import HeroPage from './components/HeroPage';
 import model from '@assets/mac-draco.glb';
+import { Points, PointMaterial, Stars } from '@react-three/drei';
 
 const Model = (props: any) => {
   const group = useRef() as any;
@@ -48,10 +49,11 @@ const Model = (props: any) => {
 const App = () => {
   return (
     <Router>
-      <Canvas camera={{ position: [-2, -5, -12], fov: 55 }}>
-        <pointLight position={[10, 10, 10]} intensity={1.5} />
+      <Canvas camera={{ position: [0, -8, -4], fov: 55 }}>
+        <Stars />
+        <pointLight position={[10, 10, 10]} intensity={1.25} />
         <Suspense fallback={null}>
-          <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
+          <group rotation={[0, Math.PI, 0]} position={[0, 0, 0]}>
             <Model />
           </group>
           <Environment preset="city" />
