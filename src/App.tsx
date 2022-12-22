@@ -49,7 +49,7 @@ const Model = (props: any) => {
 const App = () => {
   return (
     <Router>
-      <Canvas camera={{ position: [0, -8, -4], fov: 55 }}>
+      <Canvas camera={{ position: [0, -12, -8], fov: 55 }}>
         <Stars />
         <pointLight position={[10, 10, 10]} intensity={1.25} />
         <Suspense fallback={null}>
