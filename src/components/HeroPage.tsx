@@ -42,12 +42,12 @@ const HeroPage = () => {
                   <div className="flex justify-start">
                     <a href="#">
                       <span className="sr-only">Workflow</span>
-                      <img src={profileImg} alt="" width="60px" />
+                      <img style={{ width: '60px' }} src={pugsllcLogo} alt="PugsLLC.com logo" />
                     </a>
                   </div>
                   <div className="-mr-2 -my-2">
                     <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                      <span className="sr-only">Open menu</span>
+                      <span>Open portfolio</span>
                       <MenuIcon className="h-10 w-10" aria-hidden="true" />
                     </Popover.Button>
                   </div>
@@ -75,7 +75,7 @@ const HeroPage = () => {
                         <div></div>
                         <div className="-mr-2">
                           <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                            <span className="sr-only">Close menu</span>
+                            <span>Close portfolio</span>
                             <XIcon className="h-10 w-10" aria-hidden="true" />
                           </Popover.Button>
                         </div>
@@ -107,6 +107,7 @@ const HeroPage = () => {
         <main>
           <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center">
             <div className="px-4 px-8">
+              <img src={profileImg} alt="" width="140px" style={{ margin: '0 auto' }} />
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 text-5xl">
                 <span>Hi, I'm Wes.</span>
               </h1>
