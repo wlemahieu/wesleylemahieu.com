@@ -88,7 +88,7 @@ const HeroPage = () => {
                               href={item.href}
                               className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
                               target="_blank"
-                              rel="noreferrer"
+                              rel="external nofollow noopener"
                             >
                               <item.icon aria-hidden="true" />
                               <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
@@ -119,7 +119,7 @@ const HeroPage = () => {
                   <a
                     href="https://pugsllc.com/contact"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="external nofollow noopener"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
                   >
                     Contact me
@@ -129,7 +129,7 @@ const HeroPage = () => {
                   <a
                     href="https://github.com/wlemahieu?tab=repositories"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="external nofollow noopener"
                     className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50"
                   >
                     <img src={github} width="20px" style={{ paddingRight: '4px' }} /> My Github
@@ -142,7 +142,12 @@ const HeroPage = () => {
       </div>
       <div style={{ textAlign: 'center', marginTop: '.75rem' }}>
         Like crypto? Check out{' '}
-        <a href="https://nano.org" target="_blank" rel="noreferrer" className="font-small text-blue-600">
+        <a
+          href="https://nano.org"
+          target="_blank"
+          rel="external nofollow noopener"
+          className="font-small text-blue-600"
+        >
           Nano!
         </a>
       </div>
