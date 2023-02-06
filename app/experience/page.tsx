@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import Link from 'next/link';
+import styles from './page.module.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,9 +44,19 @@ export default function Experience() {
         </div>
       </div>
       <div className="container mx-auto max-w-screen-sm">
-        <p className="text-base text-base3 m-4">
-          {`I've worked in the web industry for 20+ years. I love creating new things and solving difficult problems.`}
-        </p>
+        <div className={`${styles.intro} mt-12`}>
+          <p className="text-base text-base3 m-4">
+            {`\n
+            I've been passionately coding for 12+ years - worked in the web industry for 15+ years - \n
+            and creating websites since the Geocities & FortuneCity era!
+            `}
+          </p>
+          <p className="text-base text-base3 m-4">
+            {`\n
+            I love creating new things and solving difficult problems. Reviving old code and optimizing for scale.\n
+            `}
+          </p>
+        </div>
         <div className="mt-12 text-base2 pb-1">
           {experiences.map((experience, key) => {
             return (

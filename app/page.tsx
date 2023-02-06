@@ -10,7 +10,7 @@ export default function About() {
         {`Hi, I'm Wes!`}
       </h1>
       <div className="flex justify-center m-4">
-        <Image src="/wes-thai-beach.jpeg" width="200" height="267" alt="A picture of Wesley LeMahieu in Phi Phi Islands, Thailand." />
+        <Image src="/wes-pha-chor-point.jpeg" width="400" height="533" alt="A picture of Wesley LeMahieu in Phi Phi Islands, Thailand." />
       </div>
       <div className="container mx-auto max-w-screen-sm">
         <p className="text-base text-base3 mb-4">
@@ -22,7 +22,7 @@ export default function About() {
         </p>
         <p className="text-base text-base2">
           {`\n
-          You might also find me exploring the Phi Phi Islands off the coast off Thailand...
+          You might also find me exploring another jungle in Thailand...
           `}
         </p>
       </div>
