@@ -25,7 +25,7 @@ const Navigation = () => {
             const href = to === '/about' ? '/' : to;
             return (
               <li key={`item-${key}`} className={page === href ? styles.activeItem : undefined}>
-                <Link href={href} className="text-lg font-semibold">{item}</Link>
+                <Link href={href} className="text-lg font-semibold" title={`href=${href} page=${page}`}>{item}</Link>
               </li>
             );
           })}
