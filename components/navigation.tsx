@@ -18,19 +18,17 @@ const Navigation = () => {
 
   return (
     <nav className={styles.root}>
-      <div className={styles.menuWrapper}>
-        <ul className={styles.menuList}>
-          {menuItems.map((item, key) => {
-            const to = `/${kebabCase(item.toLowerCase())}`;
-            const href = to === '/about' ? '/' : to;
-            return (
-              <li key={`item-${key}`} className={page === href ? styles.activeItem : undefined}>
-                <Link href={href} className="text-lg font-semibold" title={`href=${href} page=${page}`}>{item}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <ul className={styles.menuList}>
+        {menuItems.map((item, key) => {
+          const to = `/${kebabCase(item.toLowerCase())}`;
+          const href = to === '/about' ? '/' : to;
+          return (
+            <li key={`item-${key}`} className={page === href ? styles.activeItem : undefined}>
+              <Link href={href} className="text-lg font-semibold" title={`href=${href} page=${page}`}>{item}</Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   )
 };
