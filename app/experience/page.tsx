@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import styles from './page.module.css';
 
 const experiences = [{
   title: 'Senior Software Engineer',
@@ -40,7 +39,7 @@ export default function Experience() {
         </div>
       </div>
       <div className="container mx-auto max-w-screen-sm">
-        <div className={`${styles.intro} mt-12`}>
+        <div className={`gradient-box-1 mt-12`}>
           <p className="text-base text-base3 m-4">
             {`\n
             I've been passionately coding for 12+ years - worked in the web industry for 15+ years - \n

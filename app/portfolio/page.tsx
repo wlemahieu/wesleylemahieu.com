@@ -33,19 +33,28 @@ export default function Portfolio() {
       <h1 className="text-4xl font-bold text-base5">
         My Portfolio
       </h1>
+      <div style={{ opacity: 0 }}>
+        <div className="flex justify-center text-base1 gap-x-10">
+          <Link href="https://www.nano.org" target="_blank">Nano.org</Link>
+        </div>
+      </div>
       <div className="container mx-auto max-w-screen-sm">
-        <p className="text-base text-base3 m-4">
-          {`\n
-          Much of my work occurs in private repositories which can't be shared.\n
-          Although lately I've been expanding my open-source contributions on my `}
-          <Link href="https://github.com/wlemahieu" target="_blank" className="text-base1">GitHub</Link>.
-        </p>
+        <div className={`gradient-box-1 mt-12`}>
+          <p className="text-base text-base3 m-4">
+            {`\n
+            Most of my work has occurred within private company repositories which cannot be shared.\n
+            However, I've been expanding my `}
+            <Link href="https://github.com/wlemahieu" target="_blank" className="text-base1">GitHub</Link>
+            {`\n
+            portfolio.\n`}
+          </p>
+        </div>
         <div className="mt-12 text-base2 pb-1">
           {samples.map((experience, key) => {
             return (
               <div key={`exp-${key}`} className="mt-6 pb-6 border-b">
                 <h1 className="text-2xl font-bold text-base1">
-                  <Link href={experience.url}>{experience.title}</Link>
+                  <Link href={experience.url} target="_blank">{experience.title}</Link>
                 </h1>
                 <p className="text-sm text-base3 max-w-screen-sm mr-12 ml-12 pt-2 pr-4 pl-4">
                   {experience.description}

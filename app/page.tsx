@@ -7,7 +7,7 @@ export default function About() {
         {`Hi, I'm Wes!`}
       </h1>
       <div className="flex justify-center m-4">
-        <Image src="/wes-pha-chor-point.jpeg" width="400" height="533" alt="A picture of Wesley LeMahieu in Phi Phi Islands, Thailand." />
+        <Image src="/wes-pha-chor-point.jpeg" width="400" height="533" alt="A picture of Wesley LeMahieu in Phi Phi Islands, Thailand." priority />
       </div>
       <div className="container mx-auto max-w-screen-sm">
         <p className="text-base text-base3 mb-4">

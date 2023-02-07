@@ -1,9 +1,26 @@
+@keyframes root {
+  0% {
+    border-image-source: linear-gradient(to left, #f3f9ff, #21E7A6, #f3f9ff);
+  }
+  25% {
+    border-image-source: linear-gradient(to left, #f3f9ff, #f3f9ff, #21E7A6);
+  }
+  50% {
+    border-image-source: linear-gradient(to left, #21E7A6, #f3f9ff, #f3f9ff);
+  }
+  100% {
+    border-image-source: linear-gradient(to left, #f3f9ff, #21E7A6, #f3f9ff);
+  }
+}
+
 .root {
+  animation-name: root;
+  animation-duration: 10s;
   border: none;
   border-top: 8px solid;
   border-top-width: 8px;
   border-image-slice: 1;
-  border-image-source: linear-gradient(to left, #3089e6, #21E7A6);
+  border-image-source: linear-gradient(to left, #f3f9ff, #21E7A6, #f3f9ff);
   width: 100%;
   padding: 1rem;
 }
