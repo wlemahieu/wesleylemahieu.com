@@ -3,7 +3,7 @@ import puppeteer, { PuppeteerLifeCycleEvent } from 'puppeteer';
 const normalize = (text: string | null) => text || '';
 
 export default async function crawl () {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'], headless: true });
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(0);
   const options = { waitUntil: 'domcontentloaded' as PuppeteerLifeCycleEvent };

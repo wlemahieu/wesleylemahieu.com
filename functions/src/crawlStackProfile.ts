@@ -9,7 +9,7 @@ const crawlStackProfile = functions
 .region('us-central1')
 .runWith({
   timeoutSeconds: 60,
-  memory: '512MB',
+  memory: '2GB',
 })
 .pubsub.schedule('every 6 hours')
 .onRun(async (context) => {
