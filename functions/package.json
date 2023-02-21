@@ -17,9 +17,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
-    "chromium": "^3.0.3",
     "firebase": "^9.17.1",
-    "firebase-admin": "^10.0.2",
+    "firebase-admin": "^11.5.0",
     "firebase-functions": "^3.23.0",
     "puppeteer": "^19.7.2"
   },
