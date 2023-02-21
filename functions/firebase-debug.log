@@ -1,0 +1,38 @@
+[debug] [2023-02-21T18:37:16.431Z] ----------------------------------------------------------------------
+[debug] [2023-02-21T18:37:16.432Z] Command:       /Users/wes/.nvm/versions/node/v16.13.1/bin/node /Users/wes/.nvm/versions/node/v16.13.1/bin/firebase deploy
+[debug] [2023-02-21T18:37:16.432Z] CLI Version:   11.22.0
+[debug] [2023-02-21T18:37:16.432Z] Platform:      darwin
+[debug] [2023-02-21T18:37:16.432Z] Node Version:  v16.13.1
+[debug] [2023-02-21T18:37:16.433Z] Time:          Tue Feb 21 2023 10:37:16 GMT-0800 (Pacific Standard Time)
+[debug] [2023-02-21T18:37:16.433Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-21T18:37:16.466Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-21T18:37:16.466Z] > authorizing via signed-in user (wes@pugsllc.com)
+[debug] [2023-02-21T18:37:16.466Z] [iam] checking project wesleylemahieu-com for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-02-21T18:37:16.467Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/wesleylemahieu-com:testIamPermissions [none]
+[debug] [2023-02-21T18:37:16.467Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/wesleylemahieu-com:testIamPermissions x-goog-quota-user=projects/wesleylemahieu-com
+[debug] [2023-02-21T18:37:16.467Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wesleylemahieu-com:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-21T18:37:16.736Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/wesleylemahieu-com:testIamPermissions 200
+[debug] [2023-02-21T18:37:16.737Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wesleylemahieu-com:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-02-21T18:37:16.737Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/wesleylemahieu-com/serviceAccounts/wesleylemahieu-com@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2023-02-21T18:37:16.737Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/wesleylemahieu-com/serviceAccounts/wesleylemahieu-com@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-02-21T18:37:16.941Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/wesleylemahieu-com/serviceAccounts/wesleylemahieu-com@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2023-02-21T18:37:16.941Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/wesleylemahieu-com/serviceAccounts/wesleylemahieu-com@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-02-21T18:37:16.942Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wesleylemahieu-com [none]
+[debug] [2023-02-21T18:37:17.185Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wesleylemahieu-com 200
+[debug] [2023-02-21T18:37:17.185Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wesleylemahieu-com {"projectId":"wesleylemahieu-com","projectNumber":"92449758096","displayName":"wesleylemahieu-com","name":"projects/wesleylemahieu-com","resources":{"hostingSite":"wesleylemahieu-com"},"state":"ACTIVE","etag":"1_db539e51-649c-4e07-8952-12d7a6615e5d"}
+[debug] [2023-02-21T18:37:17.872Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/wesleylemahieu-com/sites pageToken=&pageSize=10
+[debug] [2023-02-21T18:37:18.383Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/wesleylemahieu-com/sites 200
+[debug] [2023-02-21T18:37:18.383Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/wesleylemahieu-com/sites {"sites":[{"name":"projects/wesleylemahieu-com/sites/wesleylemahieu-com","defaultUrl":"https://wesleylemahieu-com.web.app","appId":"1:92449758096:web:5e54452786d451ccdcf115","type":"DEFAULT_SITE"}]}
+[debug] [2023-02-21T18:37:18.384Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:92449758096:web:5e54452786d451ccdcf115/config [none]
+[debug] [2023-02-21T18:37:18.820Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:92449758096:web:5e54452786d451ccdcf115/config 200
+[debug] [2023-02-21T18:37:18.820Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:92449758096:web:5e54452786d451ccdcf115/config {"projectId":"wesleylemahieu-com","appId":"1:92449758096:web:5e54452786d451ccdcf115","storageBucket":"wesleylemahieu-com.appspot.com","apiKey":"AIzaSyB5BeJS3Vde5A8HQGHUDVKzd2SxO1WKDNk","authDomain":"wesleylemahieu-com.firebaseapp.com","messagingSenderId":"92449758096"}
+[debug] [2023-02-21T18:37:23.097Z] Error: Build failed because of webpack errors
+    at /Users/wes/Development/pugsllc/wesleylemahieu.com/node_modules/next/dist/build/index.js:581:29
+    at async Span.traceAsyncFn (/Users/wes/Development/pugsllc/wesleylemahieu.com/node_modules/next/dist/trace/trace.js:79:20)
+    at async build (/Users/wes/Development/pugsllc/wesleylemahieu.com/node_modules/next/dist/build/index.js:66:29)
+    at async build (/Users/wes/.nvm/versions/node/v16.13.1/lib/node_modules/firebase-tools/lib/frameworks/next/index.js:50:5)
+    at async prepareFrameworks (/Users/wes/.nvm/versions/node/v16.13.1/lib/node_modules/firebase-tools/lib/frameworks/index.js:246:108)
+    at async deploy (/Users/wes/.nvm/versions/node/v16.13.1/lib/node_modules/firebase-tools/lib/deploy/index.js:53:13)
+[error] 
+[error] Error: An unexpected error has occurred.

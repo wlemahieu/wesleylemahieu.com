@@ -42,11 +42,10 @@ export default function Portfolio() {
         <div className={`gradient-box-1 mt-12`}>
           <p className="text-base text-base3 m-4">
             {`\n
-            Most of my work has occurred within private company repositories which cannot be shared.\n
-            However, I've been expanding my `}
-            <Link href="https://github.com/wlemahieu" target="_blank" className="text-base1">GitHub</Link>
-            {`\n
-            portfolio.\n`}
+            Over the years, a majority of my work has been within private company repositories.\n
+            Lately I've been expanding my `}
+            <Link href="https://github.com/wlemahieu" target="_blank" className="text-base1">GitHub</Link> {`\n
+            portfolio and `}<Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank" className="text-base1">Stackoverflow</Link> contributions.
           </p>
         </div>
         <div className="mt-12 text-base2 pb-1">

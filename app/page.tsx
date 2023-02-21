@@ -12,9 +12,9 @@ export default function About() {
       <div className="container mx-auto max-w-screen-sm">
         <p className="text-base text-base3 mb-4">
           {`\n
-          Thank you for taking the time to visit!\n
+          Thanks for visiting!\n
           I'm extremely passionate about software and web apps.\n
-          You'll find me in VSCode on a Friday night tinkering with ideas as a form of entertainment.\n
+          You'll find me in VSCode on a Friday night tinkering with ideas. Or on Stackoverflow.com answering questions.\n
           `}
         </p>
         <p className="text-base text-base2">

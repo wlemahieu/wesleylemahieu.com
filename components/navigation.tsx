@@ -14,6 +14,7 @@ const Navigation = () => {
   const headersList = headers();
   const host = headersList.get('host');
   const url = headersList.get('x-url')?.replace('https://', '').replace('http://', '') || "";
+  console.log('x-url', url);
   const page = host ? url.replace(host, '') : null;
 
   return (
