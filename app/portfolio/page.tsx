@@ -28,6 +28,8 @@ const samples = [{
 }]
 
 export default function Portfolio() {
+  console.log('--- PORFOLIO ---');
+
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">

@@ -10,11 +10,10 @@ const menuItems = [
   'Contact'
 ];
 
-const Navigation = () => {
+const Navigation =  () => {
   const headersList = headers();
   const host = headersList.get('host');
   const url = headersList.get('x-url')?.replace('https://', '').replace('http://', '') || "";
-  console.log('x-url', url);
   const page = host ? url.replace(host, '') : null;
 
   return (
@@ -25,7 +24,7 @@ const Navigation = () => {
           const href = to === '/about' ? '/' : to;
           return (
             <li key={`item-${key}`} className={page === href ? styles.activeItem : undefined}>
-              <Link href={href} className="text-lg font-semibold" title={`href=${href} page=${page}`}>{item}</Link>
+              <Link href={href} className="text-lg font-semibold" title={item}>{item}</Link>
             </li>
           );
         })}

@@ -12,8 +12,7 @@ const crawlStackProfile = functions
   memory: '2GB',
 })
 .pubsub.schedule('every 6 hours')
-.onRun(async (context) => {
-  console.log(context);
+.onRun(async () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 

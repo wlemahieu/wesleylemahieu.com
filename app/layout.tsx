@@ -1,8 +1,10 @@
 import './globals.css'
-import Navigation from '@/components/navigation'
+import Navigation from '@components/navigation'
 import { Lato } from '@next/font/google'
 
 const font = Lato({ subsets: ['latin'], weight: '400' })
+
+const Nav = Navigation as any;
 
 export default function RootLayout({
   children,
@@ -17,7 +19,7 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Navigation />
+        <Nav />
         <div className="p-4">
           {children}
         </div>
