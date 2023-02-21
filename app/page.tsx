@@ -1,10 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link';
+const baseURL = process.env.MODE === 'development' ? 'http://127.0.0.1:5000' : 'https://wesleylemahieu.com';
 
 export default async function About() {
-  const resp = await fetch(`http://127.0.0.1:5000/api/getStackoverflowProfile`);
-  const json = await resp.json();
-  const { stats } = json;
+  let stats: any = {};
+
+  try {
+    const results = await fetch(`${baseURL}/api/getStackoverflowProfile`);
+    const json = await results.json();
+    stats = json.stats;
+  } catch (e) {
+    console.log(e);
+  }
   
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
@@ -21,19 +28,19 @@ export default async function About() {
       </div>
       <div>
         <div>
-          I&apos;m in the <span className="text-base5">{stats.achievement}</span> on <Image src="/stackoverflow.svg" width="25" height="25" style={{ display: 'inline'}} alt="Stackoverflow logo" priority /> Stackoverflow.com.
+          I&apos;m in the <span className="text-base5">{stats?.achievement}</span> on <Image src="/stackoverflow.svg" width="25" height="25" style={{ display: 'inline'}} alt="Stackoverflow logo" priority /> Stackoverflow.com.
         </div>
         <div>
-          Check out <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers" target="_blank" className='text-base text-base2'>my answers</Link> to see how I've contributed.
+          Check out <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers" target="_blank" className='text-base text-base2'>my answers</Link> to see how I&apos;ve contributed.
         </div>
         <div>
-          Reputation: <span className="text-base4">{stats.reputation}</span>
+          Reputation: <span className="text-base4">{stats?.reputation}</span>
         </div>
         <div>
-          People Reached: <span className="text-base4">{stats.reached}</span>
+          People Reached: <span className="text-base4">{stats?.reached}</span>
         </div>
         <div>
-          Total Answers: <span className="text-base4">{stats.answers}</span>
+          Total Answers: <span className="text-base4">{stats?.answers}</span>
         </div>
       </div>
       <div className="flex justify-center m-4">
