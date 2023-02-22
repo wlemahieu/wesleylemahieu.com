@@ -6,7 +6,7 @@
 import * as sgMail from '@sendgrid/mail';
 
 // send the email using a given template and data
-export default async (text: string) => {
+const sendEmail = async (text: string) => {
   const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY as string;
   sgMail.setApiKey(SENDGRID_API_KEY);
   sgMail
@@ -27,3 +27,5 @@ export default async (text: string) => {
 
   return Promise.resolve();
 };
+
+export default sendEmail;

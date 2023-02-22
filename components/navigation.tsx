@@ -15,7 +15,7 @@ const Navigation =  () => {
   const host = headersList.get('host');
   const url = headersList.get('x-url')?.replace('https://', '').replace('http://', '') || "";
   const page = host ? url.replace(host, '') : null;
-
+  console.log('page', page)
   return (
     <nav className={styles.root}>
       <ul className={styles.menuList}>
