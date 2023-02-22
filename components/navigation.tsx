@@ -13,15 +13,16 @@ const menuItems = [
 const Navigation =  () => {
   const headersList = headers();
   const host = headersList.get('host');
-  const url = headersList.get('x-url')?.replace('https://', '').replace('http://', '') || "";
+  const url = headersList.get('x-url')?.replace('https://', '').replace('http://', '').replace(':443', '') || "";
   const page = host ? url.replace(host, '') : null;
-  console.log('page', page)
+  console.log('page', page);
   return (
     <nav className={styles.root}>
       <ul className={styles.menuList}>
         {menuItems.map((item, key) => {
           const to = `/${kebabCase(item.toLowerCase())}`;
           const href = to === '/about' ? '/' : to;
+          console.log('href', href);
           return (
             <li key={`item-${key}`} className={page === href ? styles.activeItem : undefined}>
               <Link href={href} className="text-lg font-semibold" title={item}>{item}</Link>

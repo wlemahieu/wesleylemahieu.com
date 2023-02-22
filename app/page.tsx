@@ -31,7 +31,7 @@ export default async function About() {
           I&apos;m in the <span className="text-base5">{stats?.achievement}</span> on <Image src="/stackoverflow.svg" width="25" height="25" style={{ display: 'inline'}} alt="Stackoverflow logo" priority /> Stackoverflow.com.
         </div>
         <div>
-          Check out <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers" target="_blank" className='text-base text-base2'>my answers</Link> to see how I&apos;ve contributed.
+          Check out <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers&sort=votes" target="_blank" className='text-base text-base2'>my answers</Link> to see how I&apos;ve contributed.
         </div>
         <div>
           Reputation: <span className="text-base4">{stats?.reputation}</span>
