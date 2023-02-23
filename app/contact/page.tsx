@@ -4,16 +4,26 @@
  * Contact page view
  */
 import { FC } from 'react';
-import { useFormik } from 'formik';
-import { FirebaseApp } from 'firebase/app';
-import { getFunctions, httpsCallable } from 'firebase/functions';
-import useGetApp from '@hooks/useGetApp';
+import { useFormik, Formik, Form, Field } from 'formik';
+import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
 import Link from 'next/link';
+import { initializeApp } from '@firebase/app';
+import firebaseConfig from '@config/firebase-config.json';
+import '../globals.css';
+
+const initialValues = {
+  name: '',
+  email: '',
+  company: '',
+  phone: '',
+  inquiry: '',
+};
 
 const Contact: FC = () => {
-  const app = useGetApp();
+  const app = initializeApp(firebaseConfig);
   const region = 'us-central1';
-  const functions = getFunctions(app as FirebaseApp, region);
+  const functions = getFunctions(app, region);
+
   const sendInquiry = (values: any) => {
     const { email, inquiry, name, phone, company } = values;
     const text = `
@@ -23,8 +33,15 @@ const Contact: FC = () => {
       COMPANY: ${company}<br/>
       INQUIRY: ${inquiry}
     `;
-    const sendInquiryFn = httpsCallable(functions, 'sendInquiry');
-    sendInquiryFn({ text });
+    
+    // connect to the local emulators
+    if (process.env.NEXT_PUBLIC_MODE === 'development') {
+      console.log('----- DEVELOPMENT MODE -----');
+      connectFunctionsEmulator(functions, '127.0.0.1', 5001);
+
+      const sendInquiryFn = httpsCallable(functions, 'sendInquiry');
+      sendInquiryFn({ text });
+    }
   };
 
   const validate = (values: any) => {
@@ -44,21 +61,6 @@ const Contact: FC = () => {
     return errors;
   };
 
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      company: '',
-      phone: '',
-      inquiry: '',
-    },
-    onSubmit: (values) => {
-      sendInquiry(values);
-      formik.resetForm();
-    },
-    validate,
-  });
-
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">
@@ -69,44 +71,34 @@ const Contact: FC = () => {
       </div>
 
       <div className="container mx-auto max-w-screen-sm border-2 text-base3 mt-3">
-        <div className="w-full max-w-xs mx-auto">
-          <form onSubmit={formik.handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Name
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" autoComplete='off' placeholder="Name" onChange={formik.handleChange} />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Email
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" autoComplete='off' placeholder="Email" onChange={formik.handleChange} />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Phone
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="text" autoComplete='off' placeholder="Phone" onChange={formik.handleChange} />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Company
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="company" type="text" autoComplete='off' placeholder="Company" onChange={formik.handleChange} />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Inquiry
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="inquiry" type="text" autoComplete='off' placeholder="Inquiry" onChange={formik.handleChange} />
-            </div>
-            <div className="flex items-center justify-between">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                Submit
-              </button>
-            </div>
-          </form>
+        <div className="w-full max-w-xs mx-auto m-3">
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values, actions) => {
+              sendInquiry(values);
+              actions.resetForm();
+            }}
+            validate={validate}
+          >
+            <Form>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                <Field id="name" name="name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <Field id="email" name="email" type="email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="inquiry" className="block text-gray-700 text-sm font-bold mb-2">Inquiry</label>
+                <Field rows={10} cols={5} id="inquiry" name="inquiry" type="textarea" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+              </div>
+
+              <button type="submit" style={{ border: '1px solid white', borderRadius: '8px', padding: '.5rem 1rem' }}>Submit</button>
+            </Form>
+          </Formik>
         </div>
       </div>
     </div>
