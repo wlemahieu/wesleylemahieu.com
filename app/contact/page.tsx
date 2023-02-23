@@ -14,8 +14,6 @@ import '../globals.css';
 const initialValues = {
   name: '',
   email: '',
-  company: '',
-  phone: '',
   inquiry: '',
 };
 
@@ -29,8 +27,6 @@ const Contact: FC = () => {
     const text = `
       NAME: ${name}<br/>
       EMAIL: ${email}<br/>
-      PHONE: ${phone}<br/>
-      COMPANY: ${company}<br/>
       INQUIRY: ${inquiry}
     `;
     
@@ -38,10 +34,9 @@ const Contact: FC = () => {
     if (process.env.NEXT_PUBLIC_MODE === 'development') {
       console.log('----- DEVELOPMENT MODE -----');
       connectFunctionsEmulator(functions, '127.0.0.1', 5001);
-
-      const sendInquiryFn = httpsCallable(functions, 'sendInquiry');
-      sendInquiryFn({ text });
     }
+    const sendInquiryFn = httpsCallable(functions, 'sendInquiry');
+    sendInquiryFn({ text });
   };
 
   const validate = (values: any) => {
