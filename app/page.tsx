@@ -79,7 +79,7 @@ export default async function About() {
         </div>
       </div>
       <div className="mt-8">
-        {badges.map((badge: any, key: number) => {
+        {badges?.map((badge: any, key: number) => {
           return (
             <div key={`k-${key}`} style={{ color: colors[badge.type], display: 'flex', flexDirection: 'column', justifyContent: 'center', rowGap: '.1rem', marginBottom: '2rem' }}>
               <h3>{badge.title}</h3>
