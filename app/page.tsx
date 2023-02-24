@@ -19,16 +19,16 @@ export default async function About() {
     console.log(e);
   }
 
-  const badges = stats.badges.map((badge: any, key: number) => {
+  const badges = stats?.badges?.map((badge: any) => {
     const split = badge.description.split(' badge:');
     const type = split[0] as string;
     const description = split[1] as string;
     return { ...badge, type, description };
   });
 
-  const goldBadges = badges.filter((b: any) => b.type === 'gold').length;
-  const silverBadges = badges.filter((b: any) => b.type === 'silver').length;
-  const bronzeBadges = badges.filter((b: any) => b.type === 'bronze').length;
+  const goldBadges = badges?.filter((b: any) => b.type === 'gold')?.length;
+  const silverBadges = badges?.filter((b: any) => b.type === 'silver')?.length;
+  const bronzeBadges = badges?.filter((b: any) => b.type === 'bronze')?.length;
 
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
