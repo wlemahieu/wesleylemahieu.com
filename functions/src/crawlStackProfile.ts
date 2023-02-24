@@ -1,8 +1,6 @@
 import * as functions from 'firebase-functions';
-import { initializeApp } from '@firebase/app';
-import { doc, getFirestore, setDoc} from '@firebase/firestore';
-import firebaseConfig from './firebase-config.json';
-import startFirestoreEmulator from './helpers/startFirestoreEmulator';
+import { getApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 import crawl from './helpers/crawl';
 
 const crawlStackProfile = functions
@@ -13,18 +11,11 @@ const crawlStackProfile = functions
 })
 .pubsub.schedule('every 3 hours')
 .onRun(async () => {
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  startFirestoreEmulator();
-
+  const app = getApp();
+  const db = getFirestore(app) as any;
   const stats = await crawl();
-  
-  return await setDoc(
-    doc(db, `stackoverflow`, 'profile'),
-    { stats },
-    { merge: true },
-  );
+  const docRef = db.collection('stackoverflow').doc('profile');
+  return docRef.set({ stats }, { merge: true });
 });
 
 export default crawlStackProfile;
