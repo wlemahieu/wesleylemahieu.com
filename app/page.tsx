@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link';
+
 const baseURL = process.env.MODE === 'development' ? 'http://127.0.0.1:5000' : 'https://wesleylemahieu.com';
 
 const colors: { [key:string]: string } = {
@@ -13,8 +14,10 @@ export default async function About() {
 
   try {
     const results = await fetch(`${baseURL}/api/getStackoverflowProfile`);
-    const json = await results.json();
-    stats = json.stats;
+    if (results.ok) {
+      const json = await results.json();
+      stats = json.stats;
+    }
   } catch (e) {
     console.log(e);
   }
@@ -43,7 +46,7 @@ export default async function About() {
           {`\n
           Thanks for visiting.\n
           I'm extremely passionate about software and web apps.\n
-          You'll find me in Codesandbox or VSCode tinkering with ideas. Or perusing Stackoverflow.com trying to answer questions an learn as much as possible.`}
+          You'll find me in Codesandbox or VSCode tinkering with ideas o perusing Stackoverflow.com answering questions and learning as much as possible.`}
         </p>
       </div>
       <div className="mt-8">

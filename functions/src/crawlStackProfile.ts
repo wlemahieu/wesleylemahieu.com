@@ -12,7 +12,7 @@ const crawlStackProfile = functions
 .pubsub.schedule('every 3 hours')
 .onRun(async () => {
   const app = getApp();
-  const db = getFirestore(app) as any;
+  const db = getFirestore(app);
   const stats = await crawl();
   const docRef = db.collection('stackoverflow').doc('profile');
   return docRef.set({ stats }, { merge: true });
