@@ -46,7 +46,7 @@ export default async function About() {
           {`\n
           Thanks for visiting.\n
           I'm extremely passionate about software and web apps.\n
-          You'll find me in Codesandbox or VSCode tinkering with ideas o perusing Stackoverflow.com answering questions and learning as much as possible.`}
+          You'll find me in Codesandbox or VSCode tinkering with ideas. As well as perusing Stackoverflow.com answering questions and learning as much as possible.`}
         </p>
       </div>
       <div className="mt-8">
