@@ -1,15 +1,12 @@
-import './globals.css'
+import './globals.css';
+
 import { Lato } from '@next/font/google';
-import Navigation from '@components/navigation'
-import Menu from '@components/menu'
+import Navigation from '@components/navigation';
+import Menu from '@components/menu';
 
-const font = Lato({ subsets: ['latin'], weight: '400' })
+const font = Lato({ subsets: ['latin'], weight: '400' });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={font.className}>
       {/*
@@ -21,10 +18,8 @@ export default function RootLayout({
         <Navigation>
           <Menu />
         </Navigation>
-        <div className="p-4">
-          {children}
-        </div>
+        <div className="p-4">{children}</div>
       </body>
     </html>
-  )
+  );
 }

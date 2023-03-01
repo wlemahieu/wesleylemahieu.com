@@ -22,6 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["app/*"],
+      "@css/*": ["css/*"],
       "@config/*": ["config/*"],
       "@components/*": ["components/*"],
       "@definitions/*": ["definitions/*"],
@@ -29,7 +30,7 @@
       "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@queries/*": ["queries/*"],
-      "@shared/*": ["shared/*"],
+      "@shared/*": ["shared/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -27,11 +27,7 @@ const oranges = [
   '#AC6700', // d2 orange
 ];
 
-const initialColorsOrder = [
-  ...blues,
-  ...greens, 
-  ...oranges,
-];
+const initialColorsOrder = [...blues, ...greens, ...oranges];
 
 // 52-100 range ideal. (100 = white, 52 = main color)
 const t = range(250).map((_d, key) => {
@@ -40,10 +36,10 @@ const t = range(250).map((_d, key) => {
     const d = `hsl(160, 80%, ${pct}%)`;
     return d;
   }
-  return '#fff'
+  return '#fff';
 });
 
-const Navigation = ({children}: any) => {
+const Navigation = ({ children }: any) => {
   const colorsRef = useRef<Array<string>>([]);
   const navRef = useRef<HTMLDivElement | null>(null);
   const [timer, setTimer] = useState<number | null>(null);
@@ -98,22 +94,24 @@ const Navigation = ({children}: any) => {
   console.log('y', mousePos.y);
   */
 
-  const gradientRoot = {
-    border: 'none',
-    borderTop: '3px solid',
-    borderTopWidth: '3px',
-    borderImageSlice: '1',
-    borderImageSource: `linear-gradient(45deg, ${t.join(',')})`,
-    width: '100%',
-    padding: '1rem',
-    // opacity: '.55'
-  };
-
   return (
-    <nav ref={navRef} style={gradientRoot}>
+    <nav
+      ref={navRef}
+      style={{
+        border: 'none',
+        borderTop: '3px solid',
+        borderTopWidth: '3px',
+        borderImageSlice: '1',
+        borderImageSource: `linear-gradient(45deg, ${t.join(',')})`,
+        width: '100%',
+        padding: '1rem',
+        // opacity: '.55'
+        overflowX: 'auto',
+      }}
+    >
       {children}
     </nav>
-  )
+  );
 };
 
 export default Navigation;
