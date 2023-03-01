@@ -67,18 +67,16 @@ export default function Experience() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">Experience Synopsis</h1>
-      <div>
-        <div className="flex justify-center text-base1 gap-x-10">
-          <Link href="/Wesley LeMahieu's Resume.pdf" target="_blank">
-            Resume PDF
-          </Link>
-          <Link
-            href="https://docs.google.com/document/d/1ZMJigF71Uv1wnDd4dc2Dhg2pf8SoPJiT9lhLUyaz1HY/edit"
-            target="_blank"
-          >
-            Resume URL
-          </Link>
-        </div>
+      <div className="flex justify-center text-base1 gap-x-10 mt-4">
+        <Link href="/Wesley LeMahieu's Resume.pdf" target="_blank">
+          Download Resume PDF
+        </Link>
+        <Link
+          href="https://docs.google.com/document/d/1ZMJigF71Uv1wnDd4dc2Dhg2pf8SoPJiT9lhLUyaz1HY/edit"
+          target="_blank"
+        >
+          Visit Resume Doc
+        </Link>
       </div>
       <div className="container mx-auto max-w-screen-sm">
         <div className={`gradient-box-1 mt-12`}>

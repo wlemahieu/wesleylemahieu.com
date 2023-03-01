@@ -1,40 +1,37 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const samples = [
   {
-    title: "CaseConsult.net",
-    url: "https://www.caseconsult.net",
+    title: 'CaseConsult.net',
+    url: 'https://www.caseconsult.net',
     description:
-      "A new platform where mental health practicioners can consult with other professionals relating to their cases.",
-    technologies: ["Typescript"],
+      'A new platform where mental health practicioners can consult with other professionals relating to their cases.',
+    technologies: ['Typescript'],
   },
   {
-    title: "PCPA Telehealth",
-    url: "https://www.pcpasf.com/",
+    title: 'PCPA Telehealth',
+    url: 'https://www.pcpasf.com/',
     description:
-      "A platform for therapists & psychiatrists to document, communicate, invoice and schedule visitations with patients.",
-    technologies: ["Javascript"],
+      'A platform for therapists & psychiatrists to document, communicate, invoice and schedule visitations with patients.',
+    technologies: ['Javascript'],
   },
   {
     title: `Conviva's Social Video Analytics`,
-    url: "https://www.conviva.com/social-video-analytics/",
-    description:
-      "An app where businesses can view important metrics relating to their social media videos.",
-    technologies: ["Javascript"],
+    url: 'https://www.conviva.com/social-video-analytics/',
+    description: 'An app where businesses can view important metrics relating to their social media videos.',
+    technologies: ['Javascript'],
   },
   {
     title: `Delmondo's Social Video Analytics`,
-    url: "https://www.crunchbase.com/organization/delmondo",
-    description:
-      "An app where businesses could view important metrics relating to their social media videos.",
-    technologies: ["Javascript"],
+    url: 'https://www.crunchbase.com/organization/delmondo',
+    description: 'An app where businesses could view important metrics relating to their social media videos.',
+    technologies: ['Javascript'],
   },
   {
     title: `GoDaddy / MediaTemple Workflow Tool`,
-    url: "https://mediatemple.net/blog/media-temple-updates/the-2016-stevie-awards-our-customer-support-team-does-it-again/",
-    description:
-      "An app which gathered useful metrics for customer support agents to help them improve their skills.",
-    technologies: ["Javascript"],
+    url: 'https://mediatemple.net/blog/media-temple-updates/the-2016-stevie-awards-our-customer-support-team-does-it-again/',
+    description: 'An app which gathered useful metrics for customer support agents to help them improve their skills.',
+    technologies: ['Javascript'],
   },
 ];
 
@@ -42,35 +39,22 @@ export default function Portfolio() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">My Portfolio</h1>
-      <div style={{ opacity: 0 }}>
-        <div className="flex justify-center text-base1 gap-x-10">
-          <Link href="https://www.nano.org" target="_blank">
-            Nano.org
-          </Link>
-        </div>
-      </div>
+
       <div className="container mx-auto max-w-screen-sm">
+        <br />
         <div className={`gradient-box-1 mt-12`}>
           <p className="text-base text-base3 m-4">
             {`\n
             Over the years, a majority of my work has been within private company repositories.\n
             Lately I've been expanding my `}
-            <Link
-              href="https://github.com/wlemahieu"
-              target="_blank"
-              className="text-base1"
-            >
+            <Link href="https://github.com/wlemahieu" target="_blank" className="text-base1">
               GitHub
-            </Link>{" "}
+            </Link>{' '}
             {`\n
             portfolio and `}
-            <Link
-              href="https://stackoverflow.com/users/904956/wesley-lemahieu"
-              target="_blank"
-              className="text-base1"
-            >
+            <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank" className="text-base1">
               Stackoverflow
-            </Link>{" "}
+            </Link>{' '}
             contributions.
           </p>
         </div>

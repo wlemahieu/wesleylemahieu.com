@@ -4,9 +4,10 @@ export default function Guides() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">Guides</h1>
-      <div className="container mx-auto max-w-screen-sm mt-8">
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold text-base2">Take control of your component renders!</h2>
+      <div className="container mx-auto max-w-screen-sm">
+        <br />
+        <div className="gradient-box-2 mt-12 mb-12 p-4">
+          <h2 className="text-3xl font-bold text-base3 m-4">Take control of your component renders!</h2>
           <sub>
             Feb 15th, 2023 - <i>By: Wesley LeMahieu</i>
           </sub>
