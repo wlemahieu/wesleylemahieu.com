@@ -39,24 +39,21 @@ export default function Portfolio() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">My Portfolio</h1>
-
-      <div className="container mx-auto max-w-screen-sm">
-        <br />
-        <div className={`gradient-box-1 mt-12`}>
+      <div className="flex justify-center text-base4 gap-x-10 mt-8">
+        <Link href="https://github.com/wlemahieu" target="_blank">
+          GitHub
+        </Link>
+        <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank">
+          Stackoverflow
+        </Link>
+      </div>
+      <div className="container mx-auto max-w-screen-sm mt-8">
+        <div className={`gradient-box-1`}>
           <p className="text-base text-base3 m-4">
-            {`\n
-            Over the years, a majority of my work has been within private company repositories.\n
-            Lately I've been expanding my `}
-            <Link href="https://github.com/wlemahieu" target="_blank" className="text-base1">
-              GitHub
-            </Link>{' '}
-            {`\n
-            portfolio and `}
-            <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank" className="text-base1">
-              Stackoverflow
-            </Link>{' '}
-            contributions.
+            A majority of my work occurs within private company repositories. I've been expanding my Github and
+            Stackoverflow contributions lately.
           </p>
+          <p className="text-base text-base3 m-4">Below are various products I've helped build over the years.</p>
         </div>
         <div className="mt-12 text-base2 pb-1">
           {samples.map((experience, key) => {

@@ -67,7 +67,7 @@ export default function Experience() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">Experience Synopsis</h1>
-      <div className="flex justify-center text-base1 gap-x-10 mt-4">
+      <div className="flex justify-center text-base4 gap-x-10 mt-8">
         <Link href="/Wesley LeMahieu's Resume.pdf" target="_blank">
           Download Resume PDF
         </Link>
@@ -78,8 +78,8 @@ export default function Experience() {
           Visit Resume Doc
         </Link>
       </div>
-      <div className="container mx-auto max-w-screen-sm">
-        <div className={`gradient-box-1 mt-12`}>
+      <div className="container mx-auto max-w-screen-sm mt-8">
+        <div className={`gradient-box-1`}>
           <p className="text-base text-base3 m-4">
             I've been passionately coding for 14+ years, worked in the web industry for 15+ years and creating websites
             since the Geocities & FortuneCity era.

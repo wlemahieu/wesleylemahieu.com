@@ -67,15 +67,14 @@ export default function Sandboxes() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">My Sandboxes</h1>
-      <div className="container mx-auto max-w-screen-sm">
-        <br />
-        <div className={`gradient-box-1 mt-12`}>
-          <p className="text-base text-base3 m-4">
+      <div className="container mx-auto max-w-screen-sm mt-8">
+        <div className={`gradient-box-1`}>
+          <p className="text-base text-base3 p-4">
             Below are a variety of code sandboxes I've put together to help others with their issues and for me to learn
             from.
           </p>
         </div>
-        <div className="mt-12 text-base2 pb-1">
+        <div className="text-base2 pb-1 mt-8">
           {samples.map((sandbox, key) => {
             return (
               <div key={`exp-${key}`} className="mt-6 pb-6 border-b">

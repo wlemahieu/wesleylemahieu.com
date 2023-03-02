@@ -59,10 +59,9 @@ const Contact: FC = () => {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">Direct Contact</h1>
-      <div className="container mx-auto max-w-screen-sm">
-        <br />
-        <div className={`gradient-box-1 mt-12`}>
-          <p className="text-base text-base3 m-4">
+      <div className="container mx-auto max-w-screen-sm mt-8">
+        <div className={`gradient-box-1`}>
+          <p className="text-base text-base3 p-4">
             Contact me directly at:{' '}
             <Link className="text-base text-base1" href={`mailto:softwarewes@gmail.com`}>
               softwarewes@gmail.com

@@ -36,10 +36,9 @@ export default async function Stackoverflow() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center max-w-screen-sm">
       <h1 className="text-4xl font-bold text-base5">Stackoverflow Contributions</h1>
-      <div className="container mx-auto max-w-screen-sm">
-        <br />
-        <div className={`gradient-box-1 mt-12 p-4`}>
-          I'm the new kid on the block when it comes to answering questions on Stackoverflow, however, I've been helping
+      <div className="container mx-auto max-w-screen-sm mt-8">
+        <div className={`gradient-box-1 p-4`}>
+          I'm a new kid on the block when it comes to answering questions on Stackoverflow. However, I've been helping
           people troubleshoot issues for 15+ years. I'm currently in the{' '}
           <span className="text-base5">{stats?.achievement}</span> on{' '}
           <Image
@@ -53,7 +52,7 @@ export default async function Stackoverflow() {
           Stackoverflow.com.
         </div>
         <div className="mt-8">
-          Check out{' '}
+          View some of{' '}
           <Link
             href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers&sort=votes"
             target="_blank"
@@ -88,19 +87,13 @@ export default async function Stackoverflow() {
           </div>
         </div>
       </div>
-      <div className="mt-8">
+      <div style={{ maxWidth: '300px' }} className="mx-auto mt-8">
         {badges?.map((badge: any, key: number) => {
           return (
             <div
               key={`k-${key}`}
-              style={{
-                color: colors[badge.type],
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                rowGap: '.1rem',
-                marginBottom: '2rem',
-              }}
+              className="flex-col justify-center x-gap-4 mb-4 border-dashed border-2 border-opacity-50 rounded p-3"
+              style={{ color: colors[badge.type] }}
             >
               <h3>{badge.title}</h3>
               <div>{badge.description}</div>

@@ -6,7 +6,7 @@ export default async function About() {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">About Me</h1>
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center mt-8">
         <Image
           src={wes}
           width="200"
@@ -16,8 +16,8 @@ export default async function About() {
           priority
         />
       </div>
-      <div className="container mx-auto max-w-screen-sm">
-        <div className={`gradient-box-1 mt-12`}>
+      <div className="container mx-auto max-w-screen-sm mt-8">
+        <div className={`gradient-box-1`}>
           <p className="text-base text-base3 m-4 text-center">
             Hello! My name is Wesley LeMahieu. Thank you for visiting.
           </p>
