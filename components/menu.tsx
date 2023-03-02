@@ -20,7 +20,7 @@ const Menu = () => {
   const page = host ? url.replace(host, '') : null;
 
   return (
-    <ul className={styles.menuList}>
+    <ul className="container flex flex-wrap items-center justify-center gap-x-10 mx-auto">
       {menuItems.map((item, key) => {
         const to = `/${kebabCase(item.toLowerCase())}`;
         const href = to === '/about' ? '/' : to;

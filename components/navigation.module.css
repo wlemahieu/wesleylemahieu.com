@@ -11,12 +11,6 @@
   padding: 1rem;
 }
 
-.menuList {
-  display: flex;
-  justify-content: center;
-  column-gap: 1.5rem;
-}
-
 .menuList > li:hover {
   background: linear-gradient(to right, #3089e6, #21e7a6);
   background-clip: text;
