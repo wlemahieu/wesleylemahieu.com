@@ -1,29 +1,25 @@
-"use client";
+'use client';
 
 /**
  * Contact page view
  */
-import { FC } from "react";
-import { useFormik, Formik, Form, Field } from "formik";
-import {
-  getFunctions,
-  httpsCallable,
-  connectFunctionsEmulator,
-} from "firebase/functions";
-import Link from "next/link";
-import { initializeApp } from "@firebase/app";
-import firebaseConfig from "@config/firebase-config.json";
-import "../globals.css";
+import { FC } from 'react';
+import { useFormik, Formik, Form, Field } from 'formik';
+import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
+import Link from 'next/link';
+import { initializeApp } from '@firebase/app';
+import firebaseConfig from '@config/firebase-config.json';
+import '../globals.css';
 
 const initialValues = {
-  name: "",
-  email: "",
-  inquiry: "",
+  name: '',
+  email: '',
+  inquiry: '',
 };
 
 const Contact: FC = () => {
   const app = initializeApp(firebaseConfig);
-  const region = "us-central1";
+  const region = 'us-central1';
   const functions = getFunctions(app, region);
 
   const sendInquiry = (values: any) => {
@@ -35,11 +31,11 @@ const Contact: FC = () => {
     `;
 
     // connect to the local emulators
-    if (process.env.NEXT_PUBLIC_MODE === "development") {
-      console.log("----- DEVELOPMENT MODE -----");
-      connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+    if (process.env.NEXT_PUBLIC_MODE === 'development') {
+      console.log('----- DEVELOPMENT MODE -----');
+      connectFunctionsEmulator(functions, '127.0.0.1', 5001);
     }
-    const sendInquiryFn = httpsCallable(functions, "sendInquiry");
+    const sendInquiryFn = httpsCallable(functions, 'sendInquiry');
     sendInquiryFn({ text });
   };
 
@@ -47,15 +43,15 @@ const Contact: FC = () => {
     const errors: any = {};
     const { email, name, inquiry } = values;
     if (!email?.length) {
-      errors.email = "No email entered";
+      errors.email = 'No email entered';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
-      errors.email = "Invalid email format";
+      errors.email = 'Invalid email format';
     }
     if (!name?.length) {
-      errors.name = "No name entered";
+      errors.name = 'No name entered';
     }
     if (!inquiry?.length) {
-      errors.inquiry = "No inquiry entered";
+      errors.inquiry = 'No inquiry entered';
     }
     return errors;
   };
@@ -63,19 +59,20 @@ const Contact: FC = () => {
   return (
     <div className="container mx-auto text-center flex flex-col justify-center">
       <h1 className="text-4xl font-bold text-base5">Direct Contact</h1>
-      <div className="container mx-auto max-w-screen-sm text-base3 mt-6 mb-3">
-        <p>
-          Email directly at:{" "}
-          <Link
-            className="text-base text-base1"
-            href={`mailto:softwarewes@gmail.com`}
-          >
-            softwarewes@gmail.com
-          </Link>
-        </p>
+      <div className="container mx-auto max-w-screen-sm">
+        <br />
+        <div className={`gradient-box-1 mt-12`}>
+          <p className="text-base text-base3 m-4">
+            Contact me directly at:{' '}
+            <Link className="text-base text-base1" href={`mailto:softwarewes@gmail.com`}>
+              softwarewes@gmail.com
+            </Link>{' '}
+            or use the form below.
+          </p>
+        </div>
       </div>
 
-      <div className="container mx-auto max-w-screen-sm border-2 text-base3 mt-3">
+      <div className="container mx-auto max-w-screen-sm text-base3 mt-8">
         <div className="w-full max-w-xs mx-auto m-3">
           <Formik
             initialValues={initialValues}
@@ -87,10 +84,7 @@ const Contact: FC = () => {
           >
             <Form>
               <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
+                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
                   Name
                 </label>
                 <Field
@@ -101,10 +95,7 @@ const Contact: FC = () => {
               </div>
 
               <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
+                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
                   Email
                 </label>
                 <Field
@@ -116,10 +107,7 @@ const Contact: FC = () => {
               </div>
 
               <div className="mb-4">
-                <label
-                  htmlFor="inquiry"
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                >
+                <label htmlFor="inquiry" className="block text-gray-700 text-sm font-bold mb-2">
                   Inquiry
                 </label>
                 <Field
@@ -135,9 +123,9 @@ const Contact: FC = () => {
               <button
                 type="submit"
                 style={{
-                  border: "1px solid white",
-                  borderRadius: "8px",
-                  padding: ".5rem 1rem",
+                  border: '1px solid white',
+                  borderRadius: '8px',
+                  padding: '.5rem 1rem',
                 }}
               >
                 Submit
