@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { headers } from 'next/headers';
 import styles from './navigation.module.css';
 
-const menuItems = ['About', 'Experience', 'Portfolio', 'Guides', 'Stackoverflow', 'Sandboxes', 'Contact'];
+const menuItems = ['About', 'Experience', 'Guides', 'Stackoverflow', 'Sandboxes', 'Contact'];
 
 const hosts = ['localhost:3000', 'wesleylemahieu.com:443'];
 

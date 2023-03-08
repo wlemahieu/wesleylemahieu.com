@@ -78,6 +78,14 @@ export default function Experience() {
           Visit Resume Doc
         </Link>
       </div>
+      <div className="flex justify-center text-base4 gap-x-10 mt-4">
+        <Link href="https://github.com/wlemahieu" target="_blank">
+          GitHub
+        </Link>
+        <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank">
+          Stackoverflow
+        </Link>
+      </div>
       <div className="container mx-auto max-w-screen-sm mt-8">
         <div className={`gradient-box-1`}>
           <p className="text-base text-base3 m-4">
