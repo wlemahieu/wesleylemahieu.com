@@ -16,7 +16,7 @@ const experiences = [
       'App Engine',
       'Material-UI',
     ],
-    timeframe: ['Jan 2020', 'Feb 2023'],
+    timeframe: ['Jan 2020', 'Mar 2023'],
   },
   {
     title: 'Software Engineer',
