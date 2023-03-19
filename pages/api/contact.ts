@@ -7,7 +7,6 @@ const functionURL =
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { name, email, business, phone, inquiry } = req.body;
-  console.log('sendEmail ', req.body);
   // validate input
   if (!name?.length) {
     res.status(500).send({ error: 'Name is missing' });

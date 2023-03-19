@@ -1,6 +1,8 @@
 import 'server-only';
 import Link from 'next/link';
 
+const formURL = process.env.MODE === 'development' ? '/api/contact' : 'https://marijuanalocators.com/api/contact';
+
 export default function ContactPage() {
   return (
     <>
@@ -20,7 +22,7 @@ export default function ContactPage() {
         </div>
 
         <div style={{ padding: '1rem' }}>
-          <form action="/api/contact" method="post" className="pure-form">
+          <form action={formURL} method="post" className="pure-form">
             <fieldset>
               <fieldset className="pure-group">
                 <input name="name" className="pure-input-1" type="text" placeholder="Name" required />
