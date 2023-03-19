@@ -38,7 +38,7 @@ const experiences = [
   {
     title: 'Full Stack Software Developer',
     company: 'Delmondo Inc.',
-    synopsis: `Enhanced, maintained & integrated Delmondo's feature social analytics product into Conviva's products offering.`,
+    synopsis: `Enhanced, maintained & integrated Delmondo's feature social analytics product into Conviva's product-line.`,
     technologies: [
       'Javascript',
       'React.js',
@@ -65,51 +65,63 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <div className="container mx-auto text-center flex flex-col justify-center">
-      <h1 className="text-4xl font-bold text-base5">Experience Synopsis</h1>
-      <div className="flex justify-center text-base4 gap-x-10 mt-8">
-        <Link href="/Wesley LeMahieu's Resume.pdf" target="_blank">
-          Download Resume PDF
-        </Link>
-        <Link
-          href="https://docs.google.com/document/d/1ZMJigF71Uv1wnDd4dc2Dhg2pf8SoPJiT9lhLUyaz1HY/edit"
-          target="_blank"
-        >
-          Visit Resume Doc
-        </Link>
+    <>
+      <div className="header">
+        <h1>Experience</h1>
       </div>
-      <div className="flex justify-center text-base4 gap-x-10 mt-4">
-        <Link href="https://github.com/wlemahieu" target="_blank">
-          GitHub
-        </Link>
-        <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank">
-          Stackoverflow
-        </Link>
-      </div>
-      <div className="container mx-auto max-w-screen-sm mt-8">
-        <div className={`gradient-box-1`}>
-          <p className="text-base text-base3 m-4">
-            I've been passionately coding for 14+ years, worked in the web industry for 15+ years and creating websites
-            since the Geocities & FortuneCity era.
-          </p>
-          <p className="text-base text-base3 m-4">
-            I love creating new things and solving difficult problems. As well as reviving old code and optimizing for
-            scale.
-          </p>
+
+      <div className="content">
+        <h2 className="content-subhead">Related Links</h2>
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          <li>
+            <Link href="/Wesley LeMahieu's Resume.pdf" target="_blank" className="link">
+              Download Resume PDF
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="https://docs.google.com/document/d/1ZMJigF71Uv1wnDd4dc2Dhg2pf8SoPJiT9lhLUyaz1HY/edit"
+              target="_blank"
+              className="link"
+            >
+              Visit Resume Doc
+            </Link>
+          </li>
+
+          <li>
+            <Link href="https://github.com/wlemahieu" target="_blank" className="link">
+              GitHub
+            </Link>
+          </li>
+          <li>
+            <Link href="https://stackoverflow.com/users/904956/wesley-lemahieu" target="_blank" className="link">
+              Stackoverflow
+            </Link>
+          </li>
+        </ul>
+        <div>
+          <div className={`gradient-box-1`} style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
+            <p>
+              My first website was a fan-site for the famous television show 'The Simpsons'. Built in the early 90s on
+              the FortuneCity web hosting platform, it pre-dated any Javascript framework and even PHP. Since then I've
+              learned quite a few skills at each stop in along my career path. I have some side development experience
+              with cryptocurrencies like Nano and Solana.
+            </p>
+          </div>
+          <div style={{ padding: '1rem', textAlign: 'center' }}>
+            {experiences.map((experience, key) => {
+              return (
+                <div key={`exp-${key}`} style={{ margin: '2rem 0rem', borderBottom: '1px solid grey' }}>
+                  <h1>{experience.title}</h1>
+                  <h2>@ {experience.company}</h2>
+                  <h3>{experience.timeframe.join(' - ')}</h3>
+                  <p>{experience.synopsis}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="mt-12 text-base2 pb-1">
-          {experiences.map((experience, key) => {
-            return (
-              <div key={`exp-${key}`} className="mt-6 pb-6 border-b">
-                <h1 className="text-2xl font-bold text-base1">{experience.title}</h1>
-                <h2 className="text-md text-base4 italic">@ {experience.company}</h2>
-                <h3 className="text-sm text-base2 italic">{experience.timeframe.join(' - ')}</h3>
-                <p className="text-sm text-base3 max-w-screen-sm mr-12 ml-12 pt-2 pr-4 pl-4">{experience.synopsis}</p>
-              </div>
-            );
-          })}
-        </div>
       </div>
-    </div>
+    </>
   );
 }

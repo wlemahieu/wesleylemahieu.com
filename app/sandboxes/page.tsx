@@ -65,35 +65,42 @@ const samples = [
 
 export default function Sandboxes() {
   return (
-    <div className="container mx-auto text-center flex flex-col justify-center">
-      <h1 className="text-4xl font-bold text-base5">My Sandboxes</h1>
-      <div className="container mx-auto max-w-screen-sm mt-8">
-        <div className={`gradient-box-1`}>
-          <p className="text-base text-base3 p-4">
-            Below are a variety of code sandboxes I've put together to help others with their issues and for me to learn
-            from.
-          </p>
-        </div>
-        <div className="text-base2 pb-1 mt-8">
-          {samples.map((sandbox, key) => {
-            return (
-              <div key={`exp-${key}`} className="mt-6 pb-6 border-b">
-                <h1 className="text-2xl font-bold text-base1">
-                  <Link href={sandbox.url} target="_blank">
-                    {sandbox.title}
-                  </Link>
-                </h1>
-                <p className="text-sm text-base3 max-w-screen-sm mr-12 ml-12 pt-2 pr-4 pl-4">{sandbox.description}</p>
-                <ul>
-                  {sandbox.technologies.map((tech, key) => (
-                    <li key={`tech-${key}`}>{tech}</li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+    <>
+      <div className="header">
+        <h1>Sandboxes</h1>
+      </div>
+
+      <div className="content">
+        <h2 className="content-subhead">My sandboxes</h2>
+        <div>
+          <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
+            <p>
+              Below are a variety of code sandboxes I've put together to help others with their issues on Stackoverflow
+              as well as for me to better understand and learn from. This list will keep growing so be sure to check
+              back every few weeks.
+            </p>
+          </div>
+          <div style={{ marginTop: '2rem' }}>
+            {samples.map((sandbox, key) => {
+              return (
+                <div key={`exp-${key}`}>
+                  <h3>
+                    <Link href={sandbox.url} target="_blank">
+                      {sandbox.title}
+                    </Link>
+                  </h3>
+                  <p>{sandbox.description}</p>
+                  <ul>
+                    {sandbox.technologies.map((tech, key) => (
+                      <li key={`tech-${key}`}>{tech}</li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

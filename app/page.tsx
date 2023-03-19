@@ -1,29 +1,22 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import wes from '../public/wes.png';
-
 export default async function About() {
   return (
-    <div className="container mx-auto text-center flex flex-col justify-center">
-      <h1 className="text-4xl font-bold text-base5">About Me</h1>
-      <div className="container mx-auto max-w-screen-sm mt-8">
-        <div className={`gradient-box-1`}>
-          <p className="text-base text-base3 m-4 text-center">
-            Hello! My name is Wesley LeMahieu. Thank you for visiting.
-          </p>
-          <p className="text-base text-base3 m-4">
-            I'm extremely passionate about <i>quality software</i> and the <b>user experience</b>. I'm inherently
-            looking to learn and help others.
-          </p>
-          <p className="text-base text-base3 m-4">
-            Lately, I've spent a bit of time on{' '}
-            <Link className="text-base1" href="/stackoverflow">
-              Stackoverflow
-            </Link>{' '}
-            helping other developers resolve issues in their app or with their understanding of concepts.
-          </p>
-        </div>
+    <>
+      <div className="header">
+        <h1>About</h1>
       </div>
-    </div>
+
+      <div className="content">
+        <h2 className="content-subhead">Welcome!</h2>
+        <p>
+          My name is Wesley LeMahieu. I'm a Senior Software Engineer with 14+ years of full-stack experience and a deep
+          understanding of web application development.
+        </p>
+        <p>
+          I'm extremely passionate about technology and producing high quality, scalable, user-friendly software. I'm
+          always worried about the user experience and love learning new useful things. I enjoy helping other when
+          possible.
+        </p>
+      </div>
+    </>
   );
 }

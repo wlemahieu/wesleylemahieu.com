@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const baseURL = process.env.MODE === 'development' ? 'http://127.0.0.1:5000' : 'https://wesleylemahieu.com';
+const baseURL = process.env.MODE === 'development' ? 'http://localhost:3000' : 'https://wesleylemahieu.com';
 
 const colors: { [key: string]: string } = {
   gold: 'rgb(254,195,10)',
@@ -34,73 +34,82 @@ export default async function Stackoverflow() {
   const bronzeBadges = badges?.filter((b: any) => b.type === 'bronze')?.length;
 
   return (
-    <div className="container mx-auto text-center flex flex-col justify-center max-w-screen-sm">
-      <h1 className="text-4xl font-bold text-base5">Stackoverflow Contributions</h1>
-      <div className="container mx-auto max-w-screen-sm mt-8">
-        <div className={`gradient-box-1 p-4`}>
-          I'm a new kid on the block when it comes to answering questions on Stackoverflow. However, I've been helping
-          people troubleshoot issues for 15+ years. I'm currently in the{' '}
-          <span className="text-base5">{stats?.achievement}</span> on{' '}
-          <Image
-            src="/stackoverflow.svg"
-            width="25"
-            height="25"
-            style={{ display: 'inline' }}
-            alt="Stackoverflow logo"
-            priority
-          />{' '}
-          Stackoverflow.com.
-        </div>
-        <div className="mt-8">
-          View some of{' '}
-          <Link
-            href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers&sort=votes"
-            target="_blank"
-            className="text-base text-base1"
-          >
-            my answers
-          </Link>{' '}
-          to see how I&apos;ve contributed.
-        </div>
+    <>
+      <div className="header">
+        <h1>Stackoverflow</h1>
       </div>
-      <div className="container mx-auto text-center flex flex-row gap-4 justify-center max-w-screen-sm mt-8">
+
+      <div className="content">
+        <h2 className="content-subhead">Recreational contributions</h2>
         <div>
-          <div>
-            Reputation: <span className="text-base4">{stats?.reputation}</span>
-          </div>
-          <div>
-            People Reached: <span className="text-base4">{stats?.reached}</span>
-          </div>
-          <div>
-            Total Answers: <span className="text-base4">{stats?.answers}</span>
-          </div>
-        </div>
-        <div>
-          <div>
-            Gold Badges: <span style={{ color: colors.gold }}>{goldBadges}</span>
-          </div>
-          <div>
-            Silver Badges: <span style={{ color: colors.silver }}>{silverBadges}</span>
-          </div>
-          <div>
-            Bronze Badges: <span style={{ color: colors.bronze }}>{bronzeBadges}</span>
-          </div>
-        </div>
-      </div>
-      <div style={{ maxWidth: '300px' }} className="mx-auto mt-8">
-        {badges?.map((badge: any, key: number) => {
-          return (
-            <div
-              key={`k-${key}`}
-              className="flex-col justify-center x-gap-4 mb-4 border-dashed border-2 border-opacity-50 rounded p-3"
-              style={{ color: colors[badge.type] }}
-            >
-              <h3>{badge.title}</h3>
-              <div>{badge.description}</div>
+          <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
+            <p>
+              I'm new when it comes to answering questions on Stackoverflow. However, I've been helping people
+              troubleshoot issues for 15+ years. I'm currently in the <span>{stats?.achievement}</span> on{' '}
+              <Image
+                src="/stackoverflow.svg"
+                width="25"
+                height="25"
+                style={{ display: 'inline' }}
+                alt="Stackoverflow logo"
+                priority
+              />{' '}
+              Stackoverflow.com.
+            </p>
+            <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+              <p>
+                View some of{' '}
+                <Link
+                  href="https://stackoverflow.com/users/904956/wesley-lemahieu?tab=answers&sort=votes"
+                  target="_blank"
+                  className="text-base text-base1"
+                >
+                  my answers
+                </Link>{' '}
+                to see how I&apos;ve contributed.
+              </p>
             </div>
-          );
-        })}
+          </div>
+        </div>
+        <div
+          style={{ padding: '1rem', display: 'flex', columnGap: '4rem', justifyContent: 'center', marginTop: '2rem' }}
+        >
+          <div>
+            <div>
+              Reputation: <span>{stats?.reputation}</span>
+            </div>
+            <div>
+              People Reached: <span>{stats?.reached}</span>
+            </div>
+            <div>
+              Total Answers: <span>{stats?.answers}</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              Gold Badges: <span style={{ color: colors.gold }}>{goldBadges}</span>
+            </div>
+            <div>
+              Silver Badges: <span style={{ color: colors.silver }}>{silverBadges}</span>
+            </div>
+            <div>
+              Bronze Badges: <span style={{ color: colors.bronze }}>{bronzeBadges}</span>
+            </div>
+          </div>
+        </div>
+        <div style={{ maxWidth: '300px', margin: 'auto' }}>
+          <div style={{ maxWidth: '300px', marginTop: '3rem', textAlign: 'center' }}>
+            {badges?.map((badge: any, key: number) => {
+              return (
+                <div key={`k-${key}`} style={{ color: colors[badge.type], margin: '1rem' }}>
+                  <h3>{badge.title}</h3>
+                  <div style={{ borderBottom: '1px solid lightgrey', padding: '1rem' }}>{badge.description}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,0 +1,20 @@
+a,
+.link,
+.link-base {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gradient-box-1 {
+  border: 4px solid;
+  border-width: 4px;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, #3089e6, #21e7a6);
+}
+
+.gradient-box-2 {
+  border: 4px solid;
+  border-width: 4px;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, #eee8a9, #21e7a6);
+}

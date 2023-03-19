@@ -9,26 +9,38 @@ const guides = [
 
 export default function Guides() {
   return (
-    <div className="container mx-auto text-center flex flex-col justify-center">
-      <h1 className="text-4xl font-bold text-base5">Guides</h1>
-      <div className="container mx-auto max-w-screen-sm">
-        {guides.map((guide, key) => (
-          <div key={`key-${key}`} className="gradient-box-2 mt-8 mb-8 p-4 border-2 rounded">
-            <h3 className="text-xl font-bold text-base4">{guide.title}</h3>
-            <div>
-              <sub>{guide.date} - By: Wesley LeMahieu</sub>
-            </div>
-            <div className="mt-4">
-              <Link
-                href="/guides/take-control-of-your-component-renders"
-                className="px-4 py-2 font-semibold text-sm bg-base1 text-white rounded shadow-sm"
-              >
-                Read Guide
-              </Link>
-            </div>
-          </div>
-        ))}
+    <>
+      <div className="header">
+        <h1>Guides</h1>
       </div>
-    </div>
+
+      <div className="content">
+        <h2 className="content-subhead">Full-Stack Guides</h2>
+        <div className="gradient-box-2" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
+          <p>
+            Below are some guides I've put together to help anyone trying to better understand certain concepts. Some of
+            these were things I struggled to understand at some point. Initially, this section will focus on React,
+            Next.js and frontend technologies. Shortly after I will be adding many backend guides relating to Node.js,
+            GraphQL, MySQL / PostgreSQL, etc. Please check back here every few weeks if you're interested!
+          </p>
+        </div>
+        <div>
+          {guides.map((guide, key) => (
+            <div key={`key-${key}`} style={{ margin: '2rem 0rem', borderBottom: '1px solid grey' }}>
+              <h3 style={{ margin: 0, padding: 0 }}>{guide.title}</h3>
+              <sub>{guide.date} - By: Wesley LeMahieu</sub>
+              <div className="mt-4">
+                <Link
+                  href="/guides/take-control-of-your-component-renders"
+                  className="px-4 py-2 font-semibold text-sm bg-base1 text-white rounded shadow-sm"
+                >
+                  Read guide
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

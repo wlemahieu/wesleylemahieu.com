@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase-admin/app";
-import sendInquiryFunction from "./sendInquiry";
-import crawlStackProfileFunction from "./crawlStackProfile";
+import { initializeApp } from 'firebase-admin/app';
+import sendEmailFn from './sendEmail';
+import crawlStackProfileFunction from './crawlStackProfile';
 
 initializeApp();
 
@@ -8,4 +8,4 @@ initializeApp();
 export const crawlStackProfile = crawlStackProfileFunction;
 
 // called functions
-export const sendInquiry = sendInquiryFunction;
+export const sendEmail = sendEmailFn;

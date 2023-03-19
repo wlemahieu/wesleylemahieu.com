@@ -1,32 +1,41 @@
-/**
- * sendEmail.ts
- *
- * A cloud function for sending emails, triggered via cloud task.
- */
+import * as functions from 'firebase-functions';
+export interface EmailPayloadI {
+  to: string;
+  from: string;
+  subject: string;
+  html: string;
+}
 
-// send the email using a given template and data
-const sendEmail = async (text: string) => {
-  const sg = await import("@sendgrid/mail");
-  const sgMail = sg.default;
+export default async function sendEmail(emailPayload: EmailPayloadI) {
+  const sgMail = await (await import('@sendgrid/mail')).default;
+
+  const { from, to, subject, html } = emailPayload;
+
+  if (!from?.length) {
+    throw new functions.https.HttpsError('internal', 'No "from" address provided');
+  }
+  if (!to?.length) {
+    throw new functions.https.HttpsError('internal', 'No "to" address provided');
+  }
+  if (!subject?.length) {
+    throw new functions.https.HttpsError('internal', 'No "subject" provided');
+  }
+  if (!html?.length) {
+    throw new functions.https.HttpsError('internal', 'No "html" provided');
+  }
+
   const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY as string;
+
+  let fixedTo = 'wesleylemahieu@gmail.com';
+  if (process.env.MODE === 'development') {
+    fixedTo = 'wesleylemahieu@gmail.com';
+  } else {
+    fixedTo = to;
+  }
+
   sgMail.setApiKey(SENDGRID_API_KEY);
-  sgMail
-    .send({
-      from: "wes@pugsllc.com",
-      to: "wesleylemahieu@gmail.com",
-      subject: "WesleyLeMahieu.com Inquiry",
-      html: text,
-    })
-    .then((response) => {
-      console.log(response[0].statusCode);
-      console.log(response[0].headers);
-    })
-    .catch((error) => {
-      console.error(error);
-      return Promise.reject(error);
-    });
-
-  return Promise.resolve();
-};
-
-export default sendEmail;
+  return await sgMail.send({ from, to: fixedTo, subject, html }).catch((error) => {
+    console.log('##### sendEmail #####', error);
+    throw new functions.https.HttpsError('internal', error.message);
+  });
+}
