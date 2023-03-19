@@ -1,7 +1,7 @@
 import 'server-only';
 import Link from 'next/link';
 
-const formURL = process.env.MODE === 'development' ? '/api/contact' : 'https://marijuanalocators.com/api/contact';
+const formURL = process.env.MODE === 'development' ? '/api/contact' : 'https://wesleylemahieu.com/api/contact';
 
 export default function ContactPage() {
   return (

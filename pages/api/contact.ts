@@ -30,7 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       subject: 'WL Inquiry',
       html,
     };
-    console.log('fetching...');
     // send email to cloud function
     await fetch(functionURL, {
       method: 'POST',
