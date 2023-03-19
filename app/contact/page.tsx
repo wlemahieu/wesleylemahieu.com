@@ -16,7 +16,7 @@ export default function ContactPage() {
           <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>
               Use the form below or email me at:{' '}
-              <Link href={`mailto:softwarewes@gmail.com`}>softwarewes@gmail.com</Link>
+              <Link href={`mailto:softwarewes@gmail.com`}>SoftwareWes@gmail.com</Link>
             </p>
           </div>
         </div>
