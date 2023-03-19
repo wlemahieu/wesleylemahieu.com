@@ -15,10 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).send({ error: 'Email is missing' });
   } else if (!inquiry?.length) {
     res.status(500).send({ error: 'Inquiry is missing' });
-  }
-
-  // construct email body
-  const html = `
+  } else {
+    // construct email body
+    const html = `
       NAME: ${name}<br/>
       EMAIL: ${email}<br/>
       PHONE: ${phone}<br/>
@@ -26,23 +25,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       INQUIRY: ${inquiry}
     `;
 
-  const emailPayload = {
-    from: 'wes@pugsllc.com',
-    to: 'wesleylemahieu@gmail.com',
-    subject: 'WL Inquiry',
-    html,
-  };
+    const emailPayload = {
+      from: 'wes@pugsllc.com',
+      to: 'wesleylemahieu@gmail.com',
+      subject: 'WL Inquiry',
+      html,
+    };
 
-  // send email to cloud function
-  await fetch(functionURL, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(emailPayload),
-  });
+    // send email to cloud function
+    await fetch(functionURL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailPayload),
+    });
 
-  // redirect user to success page
-  res.status(200).redirect('/contact?success');
+    // redirect user to success page
+    res.status(200).redirect('/contact?success');
+  }
 }
