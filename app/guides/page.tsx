@@ -15,7 +15,7 @@ export default function Guides() {
       </div>
 
       <div className="content">
-        <h2 className="content-subhead">Full-Stack Guides</h2>
+        <h2 className="content-subhead">Learn concepts</h2>
         <div className="gradient-box-2" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
           <p>
             Below are some guides I've put together to help anyone trying to better understand certain concepts. Some of

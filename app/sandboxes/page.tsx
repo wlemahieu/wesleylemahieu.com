@@ -71,7 +71,7 @@ export default function Sandboxes() {
       </div>
 
       <div className="content">
-        <h2 className="content-subhead">My sandboxes</h2>
+        <h2 className="content-subhead">Code samples</h2>
         <div>
           <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>

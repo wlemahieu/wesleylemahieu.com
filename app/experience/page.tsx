@@ -71,7 +71,7 @@ export default function Experience() {
       </div>
 
       <div className="content">
-        <h2 className="content-subhead">Related Links</h2>
+        <h2 className="content-subhead">Related links</h2>
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
           <li>
             <Link href="/Wesley LeMahieu's Resume.pdf" target="_blank" className="link">

@@ -9,7 +9,7 @@ export default function ContactPage() {
       </div>
 
       <div className="content">
-        <h2 className="content-subhead">Contact me directly</h2>
+        <h2 className="content-subhead">Get in touch</h2>
         <div>
           <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>
