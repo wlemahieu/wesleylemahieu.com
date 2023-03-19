@@ -19,9 +19,10 @@ export default function Guides() {
         <div className="gradient-box-2" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
           <p>
             Below are some guides I've put together to help anyone trying to better understand certain concepts. Some of
-            these were things I struggled to understand at some point. Initially, this section will focus on React,
-            Next.js and frontend technologies. Shortly after I will be adding many backend guides relating to Node.js,
-            GraphQL, MySQL / PostgreSQL, etc. Please check back here every few weeks if you're interested!
+            these were concepts I've helped others with or that I struggled to understand at some point. Initially, this
+            section will focus on React, Next.js and frontend technologies. Shortly after I will be adding many backend
+            guides relating to Node.js, GraphQL, MySQL / PostgreSQL, etc. Please check back here every few weeks if
+            you're interested!
           </p>
         </div>
         <div>

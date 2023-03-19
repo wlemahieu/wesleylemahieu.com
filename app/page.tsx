@@ -13,7 +13,7 @@ export default async function About() {
         </p>
         <p>
           I'm extremely passionate about technology and producing high quality, scalable, user-friendly software. I'm
-          always worried about the user experience and love learning new useful things. I enjoy helping other when
+          always worried about the user experience and love learning new useful, things. I enjoy helping others whenever
           possible.
         </p>
       </div>

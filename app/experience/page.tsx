@@ -104,8 +104,8 @@ export default function Experience() {
             <p>
               My first website was a fan-site for the famous television show 'The Simpsons'. Built in the early 90s on
               the FortuneCity web hosting platform, it pre-dated any Javascript framework and even PHP. Since then I've
-              learned quite a few skills at each stop in along my career path. I have some side development experience
-              with cryptocurrencies like Nano and Solana.
+              learned quite a few skills at each stop in my career path. I have some side development experience with
+              cryptocurrencies like Nano and Solana.
             </p>
           </div>
           <div style={{ padding: '1rem', textAlign: 'center' }}>

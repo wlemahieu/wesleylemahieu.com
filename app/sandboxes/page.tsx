@@ -77,7 +77,7 @@ export default function Sandboxes() {
             <p>
               Below are a variety of code sandboxes I've put together to help others with their issues on Stackoverflow
               as well as for me to better understand and learn from. This list will keep growing so be sure to check
-              back every few weeks.
+              back every few weeks if you're interested!
             </p>
           </div>
           <div style={{ marginTop: '2rem' }}>
