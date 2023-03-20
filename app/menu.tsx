@@ -4,11 +4,12 @@ import { headers } from 'next/headers';
 
 const menuItems = ['About', 'Experience', 'Guides', 'Stackoverflow', 'Sandboxes', 'Contact'];
 
-const hosts = ['localhost:3000', 'wesleylemahieu.com:443'];
+const hosts = ['localhost:3000', 'wesleylemahieu.com:443', 'wesleylemahieu-com-fooulzbuhq-uc.a.run.app:443'];
 
 export default function Menu() {
   const headersList = headers();
   const host = headersList.get('host');
+  console.log('### originalHost ###', host);
   const url =
     headersList
       .get('x-url')
