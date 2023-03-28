@@ -67,7 +67,7 @@ export default function Guide1() {
 
           <h4>What is a "memo"?</h4>
           <p>
-            <b>memo</b> is a React wrapper which let's you memoize components to ensure the that they only re-render
+            <b>memo</b> is a React wrapper which let's you memoize components to ensure that they only re-render
             when one of it's props changes from the previous render.
           </p>
 
@@ -91,7 +91,7 @@ export default function Guide1() {
             , you'll see a very basic app structure in place to simulate renders.
           </p>
           <p>
-            Inside <b>index.js</b> is a <i>Context Provider</i> which wraps the entire app. <b>GoodApp/index.js</b>
+            Inside <b>index.js</b> is a <i>Context Provider</i> --- which wraps the entire app. <b>GoodApp/index.js</b>&nbsp;
             contains two separate components --- <b>SubscribedToLoading.js</b> and <b>SubscribedToAccounts.js</b> which
             are each listening to different parts of context state. As such, they each expect to only render when what
             they are listening for changes and nothing else.
@@ -112,7 +112,7 @@ export default function Guide1() {
           <p>
             A great example of <b>memo</b> in use to prevent unwanted renders is to look at the{' '}
             <b>SubscribedToAccounts.js</b> component. It contains a <b>AccountsConsumer</b> which selects the{' '}
-            <b>accouunts</b> piece of context state. It then passes it to a memoized <b>Accounts</b> component that only
+            <b>accounts</b> piece of context state. It then passes it to a memoized <b>Accounts</b> component that only
             renders when the length of the accounts array changes.
           </p>
 
