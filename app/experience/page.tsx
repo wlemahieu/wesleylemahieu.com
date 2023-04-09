@@ -103,7 +103,8 @@ export default function Experience() {
           <div className={`gradient-box-1`} style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>
               I actively develop in Typescript, Next.js, React.js, CSS, Google Cloud Platform, Node.js, SQL & NoSQL. I
-              test code with Jest, Chai, Sinon & React Testing Library.
+              test code with Jest, Chai, Sinon & React Testing Library. I'm a little skeptical of GPT but am interested
+              in integrated this into my workflow to get more done. I'm currently in a waitlist for GPT-4.
             </p>
           </div>
           <div style={{ padding: '1rem', textAlign: 'center' }}>
