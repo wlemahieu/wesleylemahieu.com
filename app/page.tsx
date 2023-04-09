@@ -7,15 +7,14 @@ export default async function About() {
 
       <div className="content">
         <h2 className="content-subhead">Welcome!</h2>
-        <p>
-          My name is Wesley LeMahieu. I'm a Senior Software Engineer with 14+ years of full-stack experience and a deep
-          understanding of web application development.
-        </p>
-        <p>
-          I'm extremely passionate about technology and producing high quality, scalable, user-friendly software. I'm
-          always worried about the user experience and love learning new useful, things. I enjoy helping others whenever
-          possible.
-        </p>
+        <div className={`gradient-box-1`} style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
+          <p>
+            My name is Wesley LeMahieu. I'm a Senior Software Engineer with 14+ years of full-stack experience and a
+            deep understanding of web application development. I'm passionate about technology and producing high
+            quality, scalable software. I enjoy focusing on the end user's experience and ensuring user interfaces are
+            clean. I like to mentor and help others.
+          </p>
+        </div>
       </div>
     </>
   );

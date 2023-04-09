@@ -75,9 +75,7 @@ export default function Sandboxes() {
         <div>
           <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>
-              Below are a variety of code sandboxes I've put together to help others with their issues on Stackoverflow
-              as well as for me to better understand and learn from. This list will keep growing so be sure to check
-              back every few weeks if you're interested!
+              Below are a variety of code sandboxes I've put together to help others with their issues on Stackoverflow.
             </p>
           </div>
           <div style={{ marginTop: '2rem' }}>

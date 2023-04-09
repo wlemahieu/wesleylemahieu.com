@@ -102,10 +102,8 @@ export default function Experience() {
         <div>
           <div className={`gradient-box-1`} style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>
-              My first website was a fan-site for the famous television show 'The Simpsons'. Built in the early 90s on
-              the FortuneCity web hosting platform, it pre-dated any Javascript framework and even PHP. Since then I've
-              learned quite a few skills at each stop in my career path. I have some side development experience with
-              cryptocurrencies like Nano and Solana.
+              I actively develop in Typescript, Next.js, React.js, CSS, Google Cloud Platform, Node.js, SQL & NoSQL. I
+              test code with Jest, Chai, Sinon & React Testing Library.
             </p>
           </div>
           <div style={{ padding: '1rem', textAlign: 'center' }}>

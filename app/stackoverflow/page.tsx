@@ -44,8 +44,8 @@ export default async function Stackoverflow() {
         <div>
           <div className="gradient-box-1" style={{ padding: '2rem', margin: '3rem 0rem 0rem 1rem' }}>
             <p>
-              I'm new when it comes to answering questions on Stackoverflow. However, I've been helping people
-              troubleshoot issues for 15+ years. I'm currently in the <span>{stats?.achievement}</span> on{' '}
+              Sometimes in my spare time I help developers on Stackoverflow. I'm currently in the{' '}
+              <b>{stats?.achievement}</b> on{' '}
               <Image
                 src="/stackoverflow.svg"
                 width="25"
@@ -54,7 +54,7 @@ export default async function Stackoverflow() {
                 alt="Stackoverflow logo"
                 priority
               />{' '}
-              Stackoverflow.com.
+              Stackoverflow.com with fairly minimal effort.
             </p>
             <div style={{ textAlign: 'center', marginTop: '1rem' }}>
               <p>
