@@ -4,8 +4,8 @@
 
 import * as THREE from 'three';
 import { useRef, useState, useMemo, useEffect } from 'react';
-import { Scroll, ScrollControls, Text } from '@react-three/drei';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Html, Scroll, ScrollControls, Text } from '@react-three/drei';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import '@css/styles.css';
 import Link from 'next/link';
 
@@ -21,15 +21,16 @@ interface WordPropsI {
   position?: any;
 }
 
+const fontProps = {
+  fontSize: 1.1,
+  letterSpacing: -0.05,
+  lineHeight: 1,
+  'material-toneMapped': false,
+};
+
 function Word({ children, ...props }: WordPropsI) {
   const color = new THREE.Color();
-  const fontProps = {
-    font: '/Inter-Bold.woff',
-    fontSize: 2,
-    letterSpacing: -0.05,
-    lineHeight: 1,
-    'material-toneMapped': false,
-  };
+
   const ref = useRef<any>(null);
   const [hovered, setHovered] = useState(false);
   const over = (e: any) => (e.stopPropagation(), setHovered(true));
@@ -59,6 +60,7 @@ function Word({ children, ...props }: WordPropsI) {
       onClick={() => console.log('clicked')}
       {...props}
       {...fontProps}
+      fontSize={2}
     >
       {children}
     </Text>
@@ -154,7 +156,7 @@ function SkillPlanet({ count = 6, radius = 20 }) {
     >
       <mesh>
         <sphereGeometry args={[15, 32, 16]} />
-        <meshStandardMaterial transparent color="#392759" opacity={0.25} />
+        <meshStandardMaterial color="lightgreen" opacity={0.25} />
         {words.map(([pos, word], index) => (
           <Word key={index} position={pos}>
             {word}
@@ -172,11 +174,10 @@ function TechStackText() {
     <Text
       scale={[1.3, 1.3, 1.3]}
       position={[0, -viewport.height * 3.3, -5]}
-      letterSpacing={0}
-      font="bold"
       color="black" // default
       anchorX="center" // default
       anchorY="middle" // default
+      {...fontProps}
     >
       Tech Stack
     </Text>
@@ -204,14 +205,13 @@ const ContactText = () => {
     <Text
       scale={[0.8, 0.8, 0.8]}
       position={[0, -viewport.height * 5, -5]}
-      letterSpacing={0}
-      font="bold"
       color={hovering ? 'lightgreen' : 'black'}
       anchorX="center"
       anchorY="middle"
       onPointerDown={onClick}
       onPointerEnter={onEnter}
       onPointerLeave={onLeave}
+      {...fontProps}
     >
       SoftwareWes@gmail.com
     </Text>
@@ -232,6 +232,7 @@ function Box({ text, page, color, ...props }: BoxPropsI) {
 
 function Scene() {
   const viewport = useThree((state) => state.viewport);
+
   return (
     <ScrollControls damping={0} pages={6} distance={0.5}>
       <Scroll>
@@ -243,10 +244,10 @@ function Scene() {
             <Text
               scale={[1, 1, 1]}
               position={[0, 0, 2]}
-              letterSpacing={0}
               color="black" // default
               anchorX="center" // default
               anchorY="middle" // default
+              {...fontProps}
             >
               Hello!
             </Text>
@@ -260,12 +261,11 @@ function Scene() {
             <Text
               scale={[0.9, 0.9, 0.9]}
               position={[0, 0, 2]}
-              letterSpacing={0}
-              font="bold"
               color="black" // default
               anchorX="center" // default
               anchorY="middle" // default
               maxWidth={1}
+              {...fontProps}
             >
               I'm Wes.
             </Text>
@@ -280,11 +280,11 @@ function Scene() {
               <Text
                 scale={[0.55, 0.55, 0.55]}
                 position={[0, 0.85, 2]}
-                letterSpacing={0}
                 color="black" // default
                 anchorX="center" // default
                 anchorY="top" // default
                 maxWidth={1}
+                {...fontProps}
               >
                 I make software.
               </Text>
@@ -346,10 +346,27 @@ const Overlay = () => {
   );
 };
 
-export default function About() {
+const ControlledInput = (props: any) => {
+  const { value, onChange, ...rest } = props;
+  const [cursor, setCursor] = useState(null);
+  const ref = useRef(null);
+  useEffect(() => {
+    const input = ref.current as any;
+    if (input) input.setSelectionRange(cursor, cursor);
+  }, [ref, cursor, value]);
+  const handleChange = (e: any) => {
+    setCursor(e.target.selectionStart);
+    onChange && onChange(e);
+  };
+  return <input ref={ref} value={value} onChange={handleChange} {...rest} />;
+};
+
+export default function App() {
   const onMove = (e: any) => {
     // console.log(e);
   };
+  const [text, set] = useState('hello world ...');
+
   return (
     <>
       <Overlay />
@@ -357,6 +374,9 @@ export default function About() {
         <ambientLight />
         <pointLight position={[10, 0, 10]} />
         <Scene />
+        <Html transform>
+          <ControlledInput type={text} onChange={(e: any) => set(e.target.value)} value={text} />
+        </Html>
       </Canvas>
     </>
   );
