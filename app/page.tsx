@@ -14,6 +14,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import '@css/styles.css';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import Camera from '@helpers/Camera';
 
 interface BoxPropsI {
   page?: number;
@@ -157,7 +158,7 @@ function SkillPlanet({ count = 6, radius = 20 }) {
     <group
       ref={ref}
       scale={[0.175, 0.175, 0.175]}
-      position={[0, -viewport.height * 4, -5]}
+      position={[0, -viewport.height * 3.6, -5]}
       onPointerOver={(e) => setHovering(true)}
       onPointerOut={(e) => setHovering(false)}
     >
@@ -326,7 +327,7 @@ function Scene() {
           transform
           portal={{ current: gl.domElement.parentNode as any }}
           rotation={[0.1, 0.4, 0.05]}
-          position={[0.5, -viewport.height * 5.65, -2]}
+          position={[0.5, -viewport.height * 5.4, -2]}
         >
           <form
             action="/api/contact"
@@ -399,28 +400,24 @@ const Overlay = () => {
 };
 
 export default function App() {
-  const [matches, setMatches] = useState(window.matchMedia('(min-width: 768px)').matches);
-  console.log({ matches });
+  const onMove = (e: any) => {
+    // console.log(e);
+  };
+  const [matches, setMatches] = useState(false);
+
   useEffect(() => {
+    setMatches(window.matchMedia('(min-width: 768px)').matches);
     window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
-      console.log('e', e);
+      console.log('e', e.matches);
       setMatches(e.matches);
     });
   }, []);
 
-  const onMove = (e: any) => {
-    // console.log(e);
-  };
-
   return (
     <>
       <Overlay />
-      <Canvas
-        style={{ height: '100vh' }}
-        onMouseMove={onMove}
-        shadows
-        camera={{ position: [0, 2, matches ? 5 : 10], fov: 60, near: 1, far: 1000 }}
-      >
+      <Canvas style={{ height: '100vh' }} onMouseMove={onMove} shadows>
+        <Camera />
         <ambientLight />
         <pointLight position={[10, 0, 10]} />
         <Suspense fallback={null}>
