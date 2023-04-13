@@ -286,7 +286,7 @@ function Scene() {
                 anchorY="top" // default
                 maxWidth={1}
               >
-                I like software.
+                I make software.
               </Text>
             </>
           }
