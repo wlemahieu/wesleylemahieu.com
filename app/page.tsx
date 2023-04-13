@@ -107,6 +107,10 @@ const originalSkills = [
 ];
 
 function SkillPlanet({ count = 6, radius = 20 }) {
+  const viewport = useThree((state) => state.viewport);
+  const ref = useRef<any>(null);
+  const [hovering, setHovering] = useState(false);
+
   let skills = [...originalSkills];
 
   const pickWord = () => {
@@ -114,10 +118,6 @@ function SkillPlanet({ count = 6, radius = 20 }) {
     skills = skills.filter((s) => s !== pick);
     return pick || 'foobar';
   };
-
-  const viewport = useThree((state) => state.viewport);
-  const ref = useRef<any>(null);
-  const [hovering, setHovering] = useState(false);
 
   // Create a count x count random words with spherical distribution
   const words = useMemo(() => {
@@ -156,7 +156,7 @@ function SkillPlanet({ count = 6, radius = 20 }) {
     >
       <mesh>
         <sphereGeometry args={[15, 32, 16]} />
-        <meshStandardMaterial color="lightgreen" opacity={0.25} />
+        <meshStandardMaterial color={!hovering ? 'lightgrey' : 'lightgreen'} opacity={0.9} transparent />
         {words.map(([pos, word], index) => (
           <Word key={index} position={pos}>
             {word}
@@ -212,6 +212,7 @@ const ContactText = () => {
       onPointerEnter={onEnter}
       onPointerLeave={onLeave}
       {...fontProps}
+      fillOpacity={0.75}
     >
       SoftwareWes@gmail.com
     </Text>
@@ -308,7 +309,7 @@ const Overlay = () => {
         left: 0,
         width: '100vw',
         height: '25px',
-        paddingTop: '5px',
+        paddingTop: '10px',
         display: 'flex',
         columnGap: 2,
         justifyContent: 'center',
@@ -324,6 +325,7 @@ const Overlay = () => {
           display: 'flex',
           zIndex: 1,
           columnGap: '1rem',
+          opacity: 0.75,
         }}
       >
         <li>
@@ -374,9 +376,11 @@ export default function App() {
         <ambientLight />
         <pointLight position={[10, 0, 10]} />
         <Scene />
+        {/* 
         <Html transform>
           <ControlledInput type={text} onChange={(e: any) => set(e.target.value)} value={text} />
         </Html>
+        */}
       </Canvas>
     </>
   );

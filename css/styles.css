@@ -44,3 +44,7 @@ a:active,
 a {
   color: black;
 }
+a:hover {
+  color: #392759;
+  opacity: 0.8;
+}
