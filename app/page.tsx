@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 
 interface BoxPropsI {
-  page: number;
+  page?: number;
   text?: any;
   color?: any;
   position?: any;
@@ -180,7 +180,7 @@ function TechStackText() {
   return (
     <Text
       scale={[1.3, 1.3, 1.3]}
-      position={[0, -viewport.height * 3.3, -5]}
+      position={[0, -viewport.height * 3.2, -3]}
       color="black" // default
       anchorX="center" // default
       anchorY="middle" // default
@@ -228,82 +228,97 @@ const ContactText = () => {
   );
 };
 
-function Box({ text, page, color, ...props }: BoxPropsI) {
+function HelloBox() {
   const [hovered, set] = useState(false);
 
   return (
-    <mesh {...props} onPointerOver={(e) => set(true)} onPointerOut={(e) => set(false)}>
+    <mesh
+      onPointerOver={(e) => set(true)}
+      onPointerOut={(e) => set(false)}
+      rotation={[0, 0.3, 0]}
+      position={[0, 0, -1]}
+    >
       <boxGeometry args={[3, 3, 3]} />
-      <meshStandardMaterial color={hovered ? 'lightgreen' : color} />
-      {text}
+      <meshStandardMaterial color={hovered ? 'lightgreen' : '#6874e8'} />
+      <Text
+        scale={[1, 1, 1]}
+        position={[-0.2, 0.2, 2]}
+        color="black" // default
+        anchorX="center" // default
+        anchorY="middle" // default
+        {...fontProps}
+      >
+        Hello!
+      </Text>
+    </mesh>
+  );
+}
+
+function ImWesBox() {
+  const [hovered, set] = useState(false);
+  const { viewport } = useThree();
+
+  return (
+    <mesh
+      onPointerOver={(e) => set(true)}
+      onPointerOut={(e) => set(false)}
+      rotation={[0, -0.3, 0]}
+      position={[0, -viewport.height, -1]}
+    >
+      <boxGeometry args={[3, 3, 3]} />
+      <meshStandardMaterial color={hovered ? 'lightgreen' : '#7A5C61'} />
+      <Text
+        scale={[0.9, 0.9, 0.9]}
+        position={[0.15, 0.1, 2]}
+        color="black" // default
+        anchorX="center" // default
+        anchorY="middle" // default
+        {...fontProps}
+        maxWidth={1}
+      >
+        I'm Wes.
+      </Text>
+    </mesh>
+  );
+}
+
+function MakeSoftwareBox() {
+  const [hovered, set] = useState(false);
+  const { viewport } = useThree();
+
+  return (
+    <mesh
+      onPointerOver={(e) => set(true)}
+      onPointerOut={(e) => set(false)}
+      rotation={[-0.25, 0, 0]}
+      position={[0, -viewport.height * 2, -1]}
+    >
+      <boxGeometry args={[3, 3, 3]} />
+      <meshStandardMaterial color={hovered ? 'lightgreen' : '#f7accf'} />
+      <Text
+        scale={[0.55, 0.55, 0.55]}
+        position={[0, 0.75, 2]}
+        color="black" // default
+        anchorX="center" // default
+        anchorY="top" // default
+        maxWidth={1}
+        {...fontProps}
+      >
+        I make software.
+      </Text>
     </mesh>
   );
 }
 
 function Scene() {
   const { viewport, gl } = useThree();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [inquiry, setInquiry] = useState('');
 
   return (
     <ScrollControls damping={0} pages={7} distance={0.5}>
       <Scroll>
-        <Box
-          color="#6874e8"
-          page={1}
-          position={[0, 0, -1]}
-          text={
-            <Text
-              scale={[1, 1, 1]}
-              position={[0, 0, 2]}
-              color="black" // default
-              anchorX="center" // default
-              anchorY="middle" // default
-              {...fontProps}
-            >
-              Hello!
-            </Text>
-          }
-        />
-        <Box
-          color="#7A5C61"
-          page={2}
-          position={[0, -viewport.height, -1]}
-          text={
-            <Text
-              scale={[0.9, 0.9, 0.9]}
-              position={[0, 0, 2]}
-              color="black" // default
-              anchorX="center" // default
-              anchorY="middle" // default
-              maxWidth={1}
-              {...fontProps}
-            >
-              I'm Wes.
-            </Text>
-          }
-        />
-        <Box
-          color="#f7accf"
-          page={3}
-          position={[0, -viewport.height * 2, -1]}
-          text={
-            <>
-              <Text
-                scale={[0.55, 0.55, 0.55]}
-                position={[0, 0.85, 2]}
-                color="black" // default
-                anchorX="center" // default
-                anchorY="top" // default
-                maxWidth={1}
-                {...fontProps}
-              >
-                I make software.
-              </Text>
-            </>
-          }
-        />
+        <HelloBox />
+        <ImWesBox />
+        <MakeSoftwareBox />
         <SkillPlanet />
         <TechStackText />
         <ContactText />
@@ -338,6 +353,7 @@ const Overlay = () => {
   return (
     <div
       style={{
+        fontSize: '20px',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -383,6 +399,15 @@ const Overlay = () => {
 };
 
 export default function App() {
+  const [matches, setMatches] = useState(window.matchMedia('(min-width: 768px)').matches);
+  console.log({ matches });
+  useEffect(() => {
+    window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
+      console.log('e', e);
+      setMatches(e.matches);
+    });
+  }, []);
+
   const onMove = (e: any) => {
     // console.log(e);
   };
@@ -390,10 +415,14 @@ export default function App() {
   return (
     <>
       <Overlay />
-      <Canvas style={{ height: '100vh' }} onMouseMove={onMove}>
-        <ambientLight intensity={0.8} />
-        <pointLight intensity={2} position={[0, 0, -1000]} />
-
+      <Canvas
+        style={{ height: '100vh' }}
+        onMouseMove={onMove}
+        shadows
+        camera={{ position: [0, 2, matches ? 5 : 10], fov: 60, near: 1, far: 1000 }}
+      >
+        <ambientLight />
+        <pointLight position={[10, 0, 10]} />
         <Suspense fallback={null}>
           <Scene />
         </Suspense>

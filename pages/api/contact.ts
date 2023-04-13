@@ -19,8 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const html = `
       NAME: ${name}<br/>
       EMAIL: ${email}<br/>
-      PHONE: ${phone}<br/>
-      BUSINESS: ${business}<br/>
       INQUIRY: ${inquiry}
     `;
 
