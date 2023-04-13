@@ -1,19 +1,26 @@
 'use client';
 
 // https://coolors.co/7a5c61-f7accf-e8f0ff-6874e8-392759
+// rose taupe 7a5c61
+// lavendar pink f7accf
+// alice blue e8f0ff
+// medium slate blue 6874e8
+// russian violet 392759
 
 import * as THREE from 'three';
 import { useRef, useState, useMemo, useEffect } from 'react';
 import { Html, Scroll, ScrollControls, Text } from '@react-three/drei';
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import '@css/styles.css';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 interface BoxPropsI {
   page: number;
   text?: any;
   color?: any;
   position?: any;
+  rotation?: any;
 }
 
 interface WordPropsI {
@@ -202,20 +209,22 @@ const ContactText = () => {
   };
 
   return (
-    <Text
-      scale={[0.8, 0.8, 0.8]}
-      position={[0, -viewport.height * 5, -5]}
-      color={hovering ? 'lightgreen' : 'black'}
-      anchorX="center"
-      anchorY="middle"
-      onPointerDown={onClick}
-      onPointerEnter={onEnter}
-      onPointerLeave={onLeave}
-      {...fontProps}
-      fillOpacity={0.75}
-    >
-      SoftwareWes@gmail.com
-    </Text>
+    <>
+      <Text
+        scale={[0.8, 0.8, 0.8]}
+        position={[0, -viewport.height * 5, -5]}
+        color={hovering ? 'lightgreen' : 'black'}
+        anchorX="center"
+        anchorY="middle"
+        onPointerDown={onClick}
+        onPointerEnter={onEnter}
+        onPointerLeave={onLeave}
+        {...fontProps}
+        fillOpacity={0.75}
+      >
+        SoftwareWes@gmail.com
+      </Text>
+    </>
   );
 };
 
@@ -232,10 +241,13 @@ function Box({ text, page, color, ...props }: BoxPropsI) {
 }
 
 function Scene() {
-  const viewport = useThree((state) => state.viewport);
+  const { viewport, gl } = useThree();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [inquiry, setInquiry] = useState('');
 
   return (
-    <ScrollControls damping={0} pages={6} distance={0.5}>
+    <ScrollControls damping={0} pages={7} distance={0.5}>
       <Scroll>
         <Box
           color="#6874e8"
@@ -295,6 +307,28 @@ function Scene() {
         <SkillPlanet />
         <TechStackText />
         <ContactText />
+        <Html
+          transform
+          portal={{ current: gl.domElement.parentNode as any }}
+          rotation={[0.1, 0.4, 0.05]}
+          position={[0.5, -viewport.height * 5.65, -2]}
+        >
+          <form
+            action="/api/contact"
+            method="post"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              rowGap: '.5rem',
+            }}
+          >
+            <input name="name" placeholder="Name" required />
+            <input name="email" placeholder="Email" required />
+            <textarea name="inquiry" placeholder="Inquiry" style={{ resize: 'none' }} required />
+            <button type="submit">Submit</button>
+          </form>
+        </Html>
       </Scroll>
     </ScrollControls>
   );
@@ -348,39 +382,21 @@ const Overlay = () => {
   );
 };
 
-const ControlledInput = (props: any) => {
-  const { value, onChange, ...rest } = props;
-  const [cursor, setCursor] = useState(null);
-  const ref = useRef(null);
-  useEffect(() => {
-    const input = ref.current as any;
-    if (input) input.setSelectionRange(cursor, cursor);
-  }, [ref, cursor, value]);
-  const handleChange = (e: any) => {
-    setCursor(e.target.selectionStart);
-    onChange && onChange(e);
-  };
-  return <input ref={ref} value={value} onChange={handleChange} {...rest} />;
-};
-
 export default function App() {
   const onMove = (e: any) => {
     // console.log(e);
   };
-  const [text, set] = useState('hello world ...');
 
   return (
     <>
       <Overlay />
       <Canvas style={{ height: '100vh' }} onMouseMove={onMove}>
-        <ambientLight />
-        <pointLight position={[10, 0, 10]} />
-        <Scene />
-        {/* 
-        <Html transform>
-          <ControlledInput type={text} onChange={(e: any) => set(e.target.value)} value={text} />
-        </Html>
-        */}
+        <ambientLight intensity={0.8} />
+        <pointLight intensity={2} position={[0, 0, -1000]} />
+
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
       </Canvas>
     </>
   );

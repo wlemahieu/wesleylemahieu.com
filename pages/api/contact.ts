@@ -42,6 +42,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     // redirect user to success page
-    res.status(200).redirect('/contact?success');
+    res.status(200).redirect('/?success');
   }
 }
