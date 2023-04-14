@@ -177,7 +177,7 @@ function TechStackText() {
   const isMobile = useIsMobile();
 
   const textScale: any = isMobile ? [0.8, 0.8, 0.8] : [1.1, 1.1, 1.1];
-  const textPosition: any = isMobile ? [0, -viewport.height * 3.5, -5] : [0, -viewport.height * 3.2, -5];
+  const textPosition: any = isMobile ? [0, -viewport.height * 3.5, -5] : [0, -viewport.height * 3, -5];
 
   return (
     <Text
@@ -338,9 +338,9 @@ function Scene() {
   const htmlRotation: any = [0.1, 0.4, 0.05];
   const htmlScale: any = isMobile ? [0.8, 0.8, 0.8] : [1, 1, 1];
   const textPosition: any = isMobile ? [0.25, -viewport.height * 6, -3] : [0.5, -viewport.height * 5.6, -3];
-
+  const pages = isMobile ? 6.8 : 6.5;
   return (
-    <ScrollControls damping={0} pages={7} distance={0.5}>
+    <ScrollControls damping={0} pages={pages} distance={0.5}>
       <Scroll>
         <HelloBox />
         <ImWesBox />
