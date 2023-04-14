@@ -16,14 +16,6 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import Camera from '@helpers/Camera';
 
-interface BoxPropsI {
-  page?: number;
-  text?: any;
-  color?: any;
-  position?: any;
-  rotation?: any;
-}
-
 interface WordPropsI {
   children: any;
   position?: any;
@@ -180,8 +172,8 @@ function TechStackText() {
 
   return (
     <Text
-      scale={[1.3, 1.3, 1.3]}
-      position={[0, -viewport.height * 3.2, -3]}
+      scale={[1.1, 1.1, 1.1]}
+      position={[0, -viewport.height * 3.2, -5]}
       color="black" // default
       anchorX="center" // default
       anchorY="middle" // default
@@ -212,7 +204,7 @@ const ContactText = () => {
   return (
     <>
       <Text
-        scale={[0.8, 0.8, 0.8]}
+        scale={[1.1, 1.1, 1.1]}
         position={[0, -viewport.height * 5, -5]}
         color={hovering ? 'lightgreen' : 'black'}
         anchorX="center"
@@ -223,7 +215,7 @@ const ContactText = () => {
         {...fontProps}
         fillOpacity={0.75}
       >
-        SoftwareWes@gmail.com
+        Email Me
       </Text>
     </>
   );
@@ -243,7 +235,7 @@ function HelloBox() {
       <meshStandardMaterial color={hovered ? 'lightgreen' : '#6874e8'} />
       <Text
         scale={[1, 1, 1]}
-        position={[-0.2, 0.2, 2]}
+        position={[-0.2, 0, 2]}
         color="black" // default
         anchorX="center" // default
         anchorY="middle" // default
@@ -270,7 +262,7 @@ function ImWesBox() {
       <meshStandardMaterial color={hovered ? 'lightgreen' : '#7A5C61'} />
       <Text
         scale={[0.9, 0.9, 0.9]}
-        position={[0.15, 0.1, 2]}
+        position={[0.15, 0, 2]}
         color="black" // default
         anchorX="center" // default
         anchorY="middle" // default
@@ -291,14 +283,14 @@ function MakeSoftwareBox() {
     <mesh
       onPointerOver={(e) => set(true)}
       onPointerOut={(e) => set(false)}
-      rotation={[-0.25, 0, 0]}
+      rotation={[0, 0, 0]}
       position={[0, -viewport.height * 2, -1]}
     >
       <boxGeometry args={[3, 3, 3]} />
       <meshStandardMaterial color={hovered ? 'lightgreen' : '#f7accf'} />
       <Text
         scale={[0.55, 0.55, 0.55]}
-        position={[0, 0.75, 2]}
+        position={[0, 0.9, 2]}
         color="black" // default
         anchorX="center" // default
         anchorY="top" // default
@@ -315,7 +307,7 @@ function Scene() {
   const { viewport, gl } = useThree();
 
   return (
-    <ScrollControls damping={0} pages={7} distance={0.5}>
+    <ScrollControls damping={0} pages={6.35} distance={0.5}>
       <Scroll>
         <HelloBox />
         <ImWesBox />
