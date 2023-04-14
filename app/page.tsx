@@ -15,6 +15,7 @@ import '@css/styles.css';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import Camera from '@helpers/Camera';
+import useIsMobile from '@hooks/useIsMobile';
 
 interface WordPropsI {
   children: any;
@@ -49,7 +50,7 @@ function Word({ children, ...props }: WordPropsI) {
       // ref.current.quaternion.copy(camera.quaternion);
       ref.current.lookAt(camera.position);
       // Animate font color
-      ref.current.material.color.lerp(color.set(hovered ? '#F7ACCF' : 'black'), 0.1);
+      ref.current.material.color.lerp(color.set(hovered ? 'lightgreen' : 'black'), 0.1);
     }
   });
   return (
@@ -110,6 +111,7 @@ function SkillPlanet({ count = 6, radius = 20 }) {
   const viewport = useThree((state) => state.viewport);
   const ref = useRef<any>(null);
   const [hovering, setHovering] = useState(false);
+  const isMobile = useIsMobile();
 
   let skills = [...originalSkills];
 
@@ -146,11 +148,14 @@ function SkillPlanet({ count = 6, radius = 20 }) {
     }
   });
 
+  const groupScale: any = isMobile ? [0.15, 0.15, 0.15] : [0.175, 0.175, 0.175];
+  const groupPosition: any = isMobile ? [0, -viewport.height * 4.1, -9] : [0, -viewport.height * 3.9, -5];
+
   return (
     <group
       ref={ref}
-      scale={[0.175, 0.175, 0.175]}
-      position={[0, -viewport.height * 3.6, -5]}
+      scale={groupScale}
+      position={groupPosition}
       onPointerOver={(e) => setHovering(true)}
       onPointerOut={(e) => setHovering(false)}
     >
@@ -169,11 +174,15 @@ function SkillPlanet({ count = 6, radius = 20 }) {
 
 function TechStackText() {
   const viewport = useThree((state) => state.viewport);
+  const isMobile = useIsMobile();
+
+  const textScale: any = isMobile ? [0.8, 0.8, 0.8] : [1.1, 1.1, 1.1];
+  const textPosition: any = isMobile ? [0, -viewport.height * 3.5, -5] : [0, -viewport.height * 3.2, -5];
 
   return (
     <Text
-      scale={[1.1, 1.1, 1.1]}
-      position={[0, -viewport.height * 3.2, -5]}
+      scale={textScale}
+      position={textPosition}
       color="black" // default
       anchorX="center" // default
       anchorY="middle" // default
@@ -187,6 +196,10 @@ function TechStackText() {
 const ContactText = () => {
   const [hovering, setHovering] = useState(false);
   const viewport = useThree((state) => state.viewport);
+  const isMobile = useIsMobile();
+
+  const textScale: any = isMobile ? [0.8, 0.8, 0.8] : [1.1, 1.1, 1.1];
+  const textPosition: any = isMobile ? [0, -viewport.height * 5.5, -5] : [0, -viewport.height * 5, -5];
 
   const onClick = () => {
     window.open('mailto:SoftwareWes@gmail.com', '_blank');
@@ -204,8 +217,8 @@ const ContactText = () => {
   return (
     <>
       <Text
-        scale={[1.1, 1.1, 1.1]}
-        position={[0, -viewport.height * 5, -5]}
+        scale={textScale}
+        position={textPosition}
         color={hovering ? 'lightgreen' : 'black'}
         anchorX="center"
         anchorY="middle"
@@ -223,6 +236,11 @@ const ContactText = () => {
 
 function HelloBox() {
   const [hovered, set] = useState(false);
+  const isMobile = useIsMobile();
+
+  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
+  const textScale: any = isMobile ? [0.6, 0.6, 0.6] : [1, 1, 1];
+  const textPosition: any = isMobile ? [-0.39, 0, 2] : [-0.2, 0, 2];
 
   return (
     <mesh
@@ -231,11 +249,11 @@ function HelloBox() {
       rotation={[0, 0.3, 0]}
       position={[0, 0, -1]}
     >
-      <boxGeometry args={[3, 3, 3]} />
+      <boxGeometry args={boxArgs} />
       <meshStandardMaterial color={hovered ? 'lightgreen' : '#6874e8'} />
       <Text
-        scale={[1, 1, 1]}
-        position={[-0.2, 0, 2]}
+        scale={textScale}
+        position={textPosition}
         color="black" // default
         anchorX="center" // default
         anchorY="middle" // default
@@ -250,6 +268,11 @@ function HelloBox() {
 function ImWesBox() {
   const [hovered, set] = useState(false);
   const { viewport } = useThree();
+  const isMobile = useIsMobile();
+
+  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
+  const textScale: any = isMobile ? [0.5, 0.5, 0.5] : [0.9, 0.9, 0.9];
+  const textPosition: any = isMobile ? [0.3, -0.1, 2] : [0.15, 0, 2];
 
   return (
     <mesh
@@ -258,11 +281,11 @@ function ImWesBox() {
       rotation={[0, -0.3, 0]}
       position={[0, -viewport.height, -1]}
     >
-      <boxGeometry args={[3, 3, 3]} />
+      <boxGeometry args={boxArgs} />
       <meshStandardMaterial color={hovered ? 'lightgreen' : '#7A5C61'} />
       <Text
-        scale={[0.9, 0.9, 0.9]}
-        position={[0.15, 0, 2]}
+        scale={textScale}
+        position={textPosition}
         color="black" // default
         anchorX="center" // default
         anchorY="middle" // default
@@ -278,6 +301,11 @@ function ImWesBox() {
 function MakeSoftwareBox() {
   const [hovered, set] = useState(false);
   const { viewport } = useThree();
+  const isMobile = useIsMobile();
+
+  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
+  const textScale: any = isMobile ? [0.3, 0.3, 0.3] : [0.55, 0.55, 0.55];
+  const textPosition: any = isMobile ? [0, 0.45, 2] : [0, 0.9, 2];
 
   return (
     <mesh
@@ -286,11 +314,11 @@ function MakeSoftwareBox() {
       rotation={[0, 0, 0]}
       position={[0, -viewport.height * 2, -1]}
     >
-      <boxGeometry args={[3, 3, 3]} />
+      <boxGeometry args={boxArgs} />
       <meshStandardMaterial color={hovered ? 'lightgreen' : '#f7accf'} />
       <Text
-        scale={[0.55, 0.55, 0.55]}
-        position={[0, 0.9, 2]}
+        scale={textScale}
+        position={textPosition}
         color="black" // default
         anchorX="center" // default
         anchorY="top" // default
@@ -305,9 +333,14 @@ function MakeSoftwareBox() {
 
 function Scene() {
   const { viewport, gl } = useThree();
+  const isMobile = useIsMobile();
+
+  const htmlRotation: any = [0.1, 0.4, 0.05];
+  const htmlScale: any = isMobile ? [0.8, 0.8, 0.8] : [1, 1, 1];
+  const textPosition: any = isMobile ? [0.25, -viewport.height * 6, -3] : [0.5, -viewport.height * 5.6, -3];
 
   return (
-    <ScrollControls damping={0} pages={6.35} distance={0.5}>
+    <ScrollControls damping={0} pages={7} distance={0.5}>
       <Scroll>
         <HelloBox />
         <ImWesBox />
@@ -316,10 +349,11 @@ function Scene() {
         <TechStackText />
         <ContactText />
         <Html
+          scale={htmlScale}
           transform
           portal={{ current: gl.domElement.parentNode as any }}
-          rotation={[0.1, 0.4, 0.05]}
-          position={[0.5, -viewport.height * 5.4, -2]}
+          rotation={htmlRotation}
+          position={textPosition}
         >
           <form
             action="/api/contact"
@@ -395,15 +429,6 @@ export default function App() {
   const onMove = (e: any) => {
     // console.log(e);
   };
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    setMatches(window.matchMedia('(min-width: 768px)').matches);
-    window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => {
-      console.log('e', e.matches);
-      setMatches(e.matches);
-    });
-  }, []);
 
   return (
     <>
