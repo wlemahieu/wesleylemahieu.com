@@ -8,385 +8,75 @@
 // russian violet 392759
 
 import * as THREE from 'three';
-import { useRef, useState, useMemo, useEffect } from 'react';
-import { Html, Scroll, ScrollControls, Text } from '@react-three/drei';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useRef, useMemo, useEffect, useState } from 'react';
+import { Html, useAnimations, Cloud, Sky, SpotLight, useVideoTexture } from '@react-three/drei';
+import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
 import '@css/styles.css';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import Camera from '@helpers/Camera';
 import useIsMobile from '@hooks/useIsMobile';
+import { OrbitControls } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Water } from 'three-stdlib';
 
-interface WordPropsI {
-  children: any;
-  position?: any;
-}
+extend({ Water });
 
-const fontProps = {
-  fontSize: 1.1,
-  letterSpacing: -0.05,
-  lineHeight: 1,
-  'material-toneMapped': false,
-};
-
-function Word({ children, ...props }: WordPropsI) {
-  const color = new THREE.Color();
-
-  const ref = useRef<any>(null);
-  const [hovered, setHovered] = useState(false);
-  const over = (e: any) => (e.stopPropagation(), setHovered(true));
-  const out = () => setHovered(false);
-  // Change the mouse cursor on hover
-  useEffect(() => {
-    if (hovered) document.body.style.cursor = 'pointer';
-    return () => {
-      document.body.style.cursor = 'auto';
-    };
-  }, [hovered]);
-  // Tie component to the render-loop
-  useFrame(({ camera }) => {
-    if (ref.current) {
-      // Make text face the camera
-      // ref.current.quaternion.copy(camera.quaternion);
-      ref.current.lookAt(camera.position);
-      // Animate font color
-      ref.current.material.color.lerp(color.set(hovered ? 'lightgreen' : 'black'), 0.1);
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      water: any;
     }
-  });
-  return (
-    <Text
-      ref={ref}
-      onPointerOver={over}
-      onPointerOut={out}
-      onClick={() => console.log('clicked')}
-      {...props}
-      {...fontProps}
-      fontSize={2}
-    >
-      {children}
-    </Text>
-  );
+  }
 }
 
-const originalSkills = [
-  'Typescript',
-  'Next.js',
-  'React.js',
-  'GCP',
-  'GCR',
-  'GCF',
-  'GAE',
-  'Three.js',
-  'R3F',
-  'Node.js',
-  'Express.js',
-  'MySQL',
-  'PgSQL',
-  'MongoDB',
-  'NoSQL',
-  'Firestore',
-  'VSCode',
-  'MUI',
-  'AntD',
-  'CSS',
-  'HTML',
-  'Jest',
-  'Mocha',
-  'Chai',
-  'Sinon',
-  'REST',
-  'OAuth',
-  'CI/CD',
-  'Git',
-  'DNS',
-  'Redux.js',
-  'Redis',
-  'Websockets',
-  'Socket.io',
-  'SEO',
-  'JIRA',
-];
-
-function SkillPlanet({ count = 6, radius = 20 }) {
-  const viewport = useThree((state) => state.viewport);
-  const ref = useRef<any>(null);
-  const [hovering, setHovering] = useState(false);
-  const isMobile = useIsMobile();
-
-  let skills = [...originalSkills];
-
-  const pickWord = () => {
-    const pick = [...skills][0];
-    skills = skills.filter((s) => s !== pick);
-    return pick || 'foobar';
-  };
-
-  // Create a count x count random words with spherical distribution
-  const words = useMemo(() => {
-    const temp = [];
-    const spherical = new THREE.Spherical();
-    const phiSpan = Math.PI / (count + 1);
-    const thetaSpan = (Math.PI * 2) / count;
-    for (let i = 1; i < count + 1; i++)
-      for (let j = 0; j < count; j++)
-        temp.push([
-          new THREE.Vector3().setFromSpherical(spherical.set(radius, phiSpan * i, thetaSpan * j)),
-          pickWord(),
-        ]);
-    return temp;
-  }, [count, radius]);
-
-  useFrame((f, d) => {
-    if (ref.current) {
-      const r = Math.PI / (360 * 6);
-      // console.log({ hovering });
-      if (!hovering) {
-        ref.current.rotation.x += r;
-        ref.current.rotation.y += r;
-        ref.current.rotation.z += r;
-      }
-    }
-  });
-
-  const groupScale: any = isMobile ? [0.15, 0.15, 0.15] : [0.175, 0.175, 0.175];
-  const groupPosition: any = isMobile ? [0, -viewport.height * 4.1, -9] : [0, -viewport.height * 3.9, -5];
-
-  return (
-    <group
-      ref={ref}
-      scale={groupScale}
-      position={groupPosition}
-      onPointerOver={(e) => setHovering(true)}
-      onPointerOut={(e) => setHovering(false)}
-    >
-      <mesh>
-        <sphereGeometry args={[15, 32, 16]} />
-        <meshStandardMaterial color={!hovering ? 'lightgrey' : 'lightgreen'} opacity={0.9} transparent />
-        {words.map(([pos, word], index) => (
-          <Word key={index} position={pos}>
-            {word}
-          </Word>
-        ))}
-      </mesh>
-    </group>
-  );
-}
-
-function TechStackText() {
-  const viewport = useThree((state) => state.viewport);
-  const isMobile = useIsMobile();
-
-  const textScale: any = isMobile ? [0.8, 0.8, 0.8] : [1.1, 1.1, 1.1];
-  const textPosition: any = isMobile ? [0, -viewport.height * 3.5, -5] : [0, -viewport.height * 3, -5];
-
-  return (
-    <Text
-      scale={textScale}
-      position={textPosition}
-      color="black" // default
-      anchorX="center" // default
-      anchorY="middle" // default
-      {...fontProps}
-    >
-      Tech Stack
-    </Text>
-  );
-}
-
-const ContactText = () => {
-  const [hovering, setHovering] = useState(false);
-  const viewport = useThree((state) => state.viewport);
-  const isMobile = useIsMobile();
-
-  const textScale: any = isMobile ? [0.8, 0.8, 0.8] : [1.1, 1.1, 1.1];
-  const textPosition: any = isMobile ? [0, -viewport.height * 5.5, -5] : [0, -viewport.height * 5, -5];
-
-  const onClick = () => {
-    window.open('mailto:SoftwareWes@gmail.com', '_blank');
-  };
-
-  const onEnter = () => {
-    setHovering(true);
-    document.body.style.cursor = 'pointer';
-  };
-  const onLeave = () => {
-    setHovering(false);
-    document.body.style.cursor = 'inherit';
-  };
-
-  return (
-    <>
-      <Text
-        scale={textScale}
-        position={textPosition}
-        color={hovering ? 'lightgreen' : 'black'}
-        anchorX="center"
-        anchorY="middle"
-        onPointerDown={onClick}
-        onPointerEnter={onEnter}
-        onPointerLeave={onLeave}
-        {...fontProps}
-        fillOpacity={0.75}
-      >
-        Email Me
-      </Text>
-    </>
-  );
-};
-
-function HelloBox() {
-  const [hovered, set] = useState(false);
-  const isMobile = useIsMobile();
-
-  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
-  const textScale: any = isMobile ? [0.6, 0.6, 0.6] : [1, 1, 1];
-  const textPosition: any = isMobile ? [-0.39, 0, 2] : [-0.2, 0, 2];
-
-  return (
-    <mesh
-      onPointerOver={(e) => set(true)}
-      onPointerOut={(e) => set(false)}
-      rotation={[0, 0.3, 0]}
-      position={[0, 0, -1]}
-    >
-      <boxGeometry args={boxArgs} />
-      <meshStandardMaterial color={hovered ? 'lightgreen' : '#6874e8'} />
-      <Text
-        scale={textScale}
-        position={textPosition}
-        color="black" // default
-        anchorX="center" // default
-        anchorY="middle" // default
-        {...fontProps}
-      >
-        Hello!
-      </Text>
-    </mesh>
-  );
-}
-
-function ImWesBox() {
-  const [hovered, set] = useState(false);
-  const { viewport } = useThree();
-  const isMobile = useIsMobile();
-
-  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
-  const textScale: any = isMobile ? [0.5, 0.5, 0.5] : [0.9, 0.9, 0.9];
-  const textPosition: any = isMobile ? [0.3, -0.1, 2] : [0.15, 0, 2];
-
-  return (
-    <mesh
-      onPointerOver={(e) => set(true)}
-      onPointerOut={(e) => set(false)}
-      rotation={[0, -0.3, 0]}
-      position={[0, -viewport.height, -1]}
-    >
-      <boxGeometry args={boxArgs} />
-      <meshStandardMaterial color={hovered ? 'lightgreen' : '#7A5C61'} />
-      <Text
-        scale={textScale}
-        position={textPosition}
-        color="black" // default
-        anchorX="center" // default
-        anchorY="middle" // default
-        {...fontProps}
-        maxWidth={1}
-      >
-        I'm Wes.
-      </Text>
-    </mesh>
-  );
-}
-
-function MakeSoftwareBox() {
-  const [hovered, set] = useState(false);
-  const { viewport } = useThree();
-  const isMobile = useIsMobile();
-
-  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
-  const textScale: any = isMobile ? [0.3, 0.3, 0.3] : [0.55, 0.55, 0.55];
-  const textPosition: any = isMobile ? [0, 0.45, 2] : [0, 0.9, 2];
-
-  return (
-    <mesh
-      onPointerOver={(e) => set(true)}
-      onPointerOut={(e) => set(false)}
-      rotation={[0, 0, 0]}
-      position={[0, -viewport.height * 2, -1]}
-    >
-      <boxGeometry args={boxArgs} />
-      <meshStandardMaterial color={hovered ? 'lightgreen' : '#f7accf'} />
-      <Text
-        scale={textScale}
-        position={textPosition}
-        color="black" // default
-        anchorX="center" // default
-        anchorY="top" // default
-        maxWidth={1}
-        {...fontProps}
-      >
-        I make software.
-      </Text>
-    </mesh>
-  );
-}
-
-function Scene() {
+const ContactForm = () => {
   const { viewport, gl } = useThree();
   const isMobile = useIsMobile();
 
   const htmlRotation: any = [0.1, 0.4, 0.05];
   const htmlScale: any = isMobile ? [0.8, 0.8, 0.8] : [1, 1, 1];
-  const textPosition: any = isMobile ? [0.25, -viewport.height * 6, -3] : [0.5, -viewport.height * 5.6, -3];
-  const pages = isMobile ? 6.8 : 6.5;
+  const boxArgs: any = isMobile ? [2, 2, 2] : [3, 3, 3];
+
   return (
-    <ScrollControls damping={0} pages={pages} distance={0.5}>
-      <Scroll>
-        <HelloBox />
-        <ImWesBox />
-        <MakeSoftwareBox />
-        <SkillPlanet />
-        <TechStackText />
-        <ContactText />
-        <Html
-          scale={htmlScale}
-          transform
-          portal={{ current: gl.domElement.parentNode as any }}
-          rotation={htmlRotation}
-          position={textPosition}
+    <mesh castShadow rotation={[0, 0, 0]} position={[0, -viewport.height * 5.5, -5]}>
+      <boxGeometry args={boxArgs} />
+      <meshStandardMaterial color="red" transparent opacity={0.5} />
+
+      <Html scale={htmlScale} transform portal={{ current: gl.domElement.parentNode as any }} rotation={htmlRotation}>
+        <form
+          action="/api/contact"
+          method="post"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            rowGap: '.5rem',
+          }}
         >
-          <form
-            action="/api/contact"
-            method="post"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              rowGap: '.5rem',
-            }}
-          >
-            <input name="name" placeholder="Name" required />
-            <input name="email" placeholder="Email" required />
-            <textarea name="inquiry" placeholder="Inquiry" style={{ resize: 'none' }} required />
-            <button type="submit">Submit</button>
-          </form>
-        </Html>
-      </Scroll>
-    </ScrollControls>
+          <input name="name" placeholder="Name" required />
+          <input name="email" placeholder="Email" required />
+          <textarea name="inquiry" placeholder="Inquiry" style={{ resize: 'none' }} required />
+          <button type="submit">Submit</button>
+        </form>
+      </Html>
+    </mesh>
   );
-}
+};
 
 const Overlay = () => {
   return (
     <div
       style={{
-        fontSize: '20px',
+        fontSize: '17px',
         position: 'absolute',
         top: 0,
         left: 0,
         width: '100vw',
         height: '25px',
-        paddingTop: '10px',
+        paddingTop: '14px',
         display: 'flex',
         columnGap: 2,
         justifyContent: 'center',
@@ -420,9 +110,166 @@ const Overlay = () => {
             Stack
           </Link>
         </li>
+        {/*
+        <li>&#9658;</li>
+      <li>&#9208;</li>*/}
       </ul>
     </div>
   );
+};
+
+const Scene2 = () => {
+  return (
+    <>
+      <Dev />
+      <Rocket />
+      <OceanW />
+    </>
+  );
+};
+
+const Dev = () => {
+  const boat = useLoader(FBXLoader, '/models/Wood_BoatV2.fbx');
+  const paddle = useLoader(FBXLoader, '/models/Paddle.fbx');
+  const macbook = useLoader(FBXLoader, '/models/macbook.fbx');
+  const dev = useLoader(GLTFLoader, '/models/astronaut_typing.glb');
+  const group = useRef<any>();
+  const spotlight = useRef<any>();
+  const devHead = useRef<any>();
+  const devRef = useRef<any>();
+  const { actions } = useAnimations(dev.animations, group);
+
+  useEffect(() => {
+    const animation = actions['Armature|mixamo.com|Layer0'];
+    animation?.play();
+  }, [actions]);
+
+  useFrame((state, delta) => {
+    group.current.position.y = Math.cos(state.clock.elapsedTime) * 0.42;
+    group.current.rotation.y = Math.cos(state.clock.elapsedTime) * 0.03;
+    spotlight.current.target = devHead.current;
+  });
+
+  const texture = useVideoTexture('/coding.mp4');
+
+  return (
+    <group ref={group}>
+      <mesh ref={devHead} receiveShadow position={[0, 5, -2]}>
+        <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
+        <meshStandardMaterial />
+      </mesh>
+      <primitive ref={devRef} object={dev.scene} scale={150} position={[0, 1.55, -1.85]} />
+      <primitive object={paddle} scale={0.05} position={[-1.5, 2.75, 0.25]} rotation={[0, Math.PI / 2, 0]} />
+      <SpotLight
+        ref={spotlight}
+        color="blue"
+        castShadow
+        position={[0.1, 4, 1.9]}
+        penumbra={5}
+        distance={5}
+        attenuation={0.1}
+        anglePower={2}
+        intensity={5}
+        target={devHead.current}
+      />
+      <mesh scale={5} position={[0.1, 3.8, 1.9]} rotation={[Math.PI / 12, 0, 0]}>
+        <boxGeometry attach="geometry" args={[0.55, 0.4, 0.01]} />
+        <meshBasicMaterial map={texture} toneMapped={false} />
+      </mesh>
+
+      <primitive object={macbook} scale={0.015} position={[-2.75, 3.9, -3]} rotation={[0, 2.63, 0]} />
+      <primitive object={boat} scale={0.05} position={[0, -1.5, 0]} />
+    </group>
+  );
+};
+
+const Rocket = () => {
+  const rocket = useLoader(GLTFLoader, '/models/rocket.glb');
+  const group = useRef<any>();
+
+  useFrame((state, delta) => {
+    group.current.position.y = Math.cos(state.clock.elapsedTime) * 0.5;
+    group.current.rotation.y = Math.cos(state.clock.elapsedTime) * 0.1;
+    group.current.rotation.y += 0.1;
+  });
+
+  return (
+    <group ref={group} position={[50, 0, 50]} rotation={[Math.PI / 2, Math.PI / 8, 0]}>
+      <primitive object={rocket.scene} scale={2} />
+    </group>
+  );
+};
+
+const Boombox = () => {
+  const fbx = useLoader(FBXLoader, '/models/boombox.fbx');
+
+  const group = useRef<any>();
+
+  return (
+    <group ref={group}>
+      <primitive object={fbx} scale={0.01} />
+    </group>
+  );
+};
+
+const OceanW = () => {
+  const ref = useRef() as any;
+  const gl = useThree((state) => state.gl) as any;
+  const waterNormals = useLoader(THREE.TextureLoader, '/waternormals.jpeg');
+  waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
+  const geom = useMemo(() => new THREE.PlaneGeometry(10000, 10000), []);
+  const config = useMemo(
+    () => ({
+      textureWidth: 512,
+      textureHeight: 512,
+      waterNormals,
+      sunDirection: new THREE.Vector3(),
+      sunColor: 0xffffff,
+      waterColor: 0x001e0f,
+      distortionScale: 3.7,
+      fog: false,
+      format: gl.encoding,
+    }),
+    [waterNormals],
+  );
+  const listener = new THREE.AudioListener();
+  const sound = new THREE.Audio(listener);
+  const audioLoader = new THREE.AudioLoader();
+
+  const listener2 = new THREE.AudioListener();
+  const sound2 = new THREE.Audio(listener2);
+  const audioLoader2 = new THREE.AudioLoader();
+
+  const listener3 = new THREE.AudioListener();
+  const sound3 = new THREE.Audio(listener3);
+  const audioLoader3 = new THREE.AudioLoader();
+
+  const onClickMesh = () => {
+    audioLoader3.load('WesTypingClicking.mp3', function (buffer) {
+      sound3.setBuffer(buffer);
+      sound3.setLoop(true);
+      sound3.setVolume(0.1);
+      sound3.play();
+    });
+
+    audioLoader.load('music.mp3', function (buffer) {
+      sound.setBuffer(buffer);
+      sound.setLoop(true);
+      sound.setPlaybackRate(0.75);
+      sound.setVolume(0.05);
+      sound.play();
+    });
+
+    audioLoader2.load('waves.mp3', function (buffer) {
+      sound2.setBuffer(buffer);
+      sound2.setLoop(true);
+      sound2.setVolume(0.1);
+      sound2.play();
+    });
+  };
+
+  useFrame((state, delta) => (ref.current.material.uniforms.time.value += delta));
+  return <water ref={ref} args={[geom, config]} rotation-x={-Math.PI / 2} onPointerDown={onClickMesh} />;
 };
 
 export default function App() {
@@ -430,15 +277,31 @@ export default function App() {
     // console.log(e);
   };
 
+  const orbitOpts = {
+    autoRotate: true,
+    autoRotateSpeed: -0.42,
+    enablePan: true,
+    screenSpacePanning: false,
+    distance: 70,
+    maxDistance: 70,
+    minDistance: 50,
+    angle: 1.41,
+    minPolarAngle: 1.41,
+    maxPolarAngle: 1.41,
+  };
+
   return (
     <>
       <Overlay />
       <Canvas style={{ height: '100vh' }} onMouseMove={onMove} shadows>
+        <ambientLight intensity={0.1} />
+        <OrbitControls {...orbitOpts} />
+        <pointLight position={[200, 9, -500]} intensity={0.25} />
+        <Sky sunPosition={[200, 9, -500]} turbidity={1} azimuth={50} rayleigh={3} />
+        {/*<axesHelper args={[50]} />*/}
         <Camera />
-        <ambientLight />
-        <pointLight position={[10, 0, 10]} />
         <Suspense fallback={null}>
-          <Scene />
+          <Scene2 />
         </Suspense>
       </Canvas>
     </>

@@ -6,7 +6,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #e8f0ff;
+  background: black;
   overflow: hidden;
   font-size: 100%;
 }
@@ -23,7 +23,6 @@ canvas {
 }
 
 body {
-  background: #e8f0ff;
   font-family: 'Helvetica';
 }
 
