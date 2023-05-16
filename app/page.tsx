@@ -336,11 +336,11 @@ export default function App() {
     <>
       <Overlay />
       <Canvas style={{ height: '100vh' }} onMouseMove={onMove} shadows>
-        <ambientLight intensity={0.1} />
+        <ambientLight intensity={0.2} />
         <OrbitControls {...orbitOpts} />
         <pointLight position={[200, 9, 500]} intensity={0.25} />
         <Sky sunPosition={[200, 9, 500]} turbidity={1} azimuth={50} rayleigh={3} />
-        <axesHelper args={[50]} />
+        <axesHelper args={[50]} visible={false} />
         <Camera />
         <Suspense fallback={null}>
           <ScrollControls pages={2}>
