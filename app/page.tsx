@@ -9,7 +9,16 @@
 
 import * as THREE from 'three';
 import { useRef, useMemo, useEffect, useState } from 'react';
-import { Html, useAnimations, Cloud, Sky, SpotLight, useVideoTexture } from '@react-three/drei';
+import {
+  Html,
+  useAnimations,
+  Cloud,
+  ScrollControls,
+  Sky,
+  SpotLight,
+  useVideoTexture,
+  useScroll,
+} from '@react-three/drei';
 import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
 import '@css/styles.css';
 import Link from 'next/link';
@@ -129,55 +138,110 @@ const Scene2 = () => {
 };
 
 const Dev = () => {
+  const [started, setStarted] = useState(false);
   const boat = useLoader(FBXLoader, '/models/Wood_BoatV2.fbx');
   const paddle = useLoader(FBXLoader, '/models/Paddle.fbx');
   const macbook = useLoader(FBXLoader, '/models/macbook.fbx');
-  const dev = useLoader(GLTFLoader, '/models/astronaut_typing.glb');
+  const dev = useLoader(GLTFLoader, '/models/astronaut.glb');
   const group = useRef<any>();
   const spotlight = useRef<any>();
   const devHead = useRef<any>();
   const devRef = useRef<any>();
-  const { actions } = useAnimations(dev.animations, group);
+  const animations = useAnimations(dev.animations, group) as Record<string, any>;
+  const [action, setAction] = useState('StandingIdle');
+  const [prevAction, setPrevAction] = useState('');
+  const texture = useVideoTexture('/coding.mp4', { start: started });
+  const scroll = useScroll();
+
+  const listener3 = new THREE.AudioListener();
+  const sound3 = new THREE.Audio(listener3);
+  const audioLoader3 = new THREE.AudioLoader();
+  // console.log('scroll', scroll);
+  const animate: any = {
+    StandingIdle: () => {
+      animations.actions.StandingIdle.play();
+      setAction('StandingIdle');
+    },
+    StandToSit: () => {
+      if (!started) {
+        setStarted(true);
+        animations.actions.StandingIdle.crossFadeTo(animations.actions.Typing, 0.4, false);
+        animations.actions.Typing.setLoop(THREE.LoopOnce);
+        audioLoader3.load('WesTypingClicking.mp3', function (buffer) {
+          sound3.setBuffer(buffer);
+          sound3.setLoop(true);
+          sound3.setVolume(0.1);
+          sound3.play();
+        });
+        animations.actions.Typing.play();
+        //animations.actions.Typing.crossFadeTo(animations.actions.StandingIdle, 0.75, false);
+        //animations.actions.StandingIdle.play();
+        devHead.current.position.set(0, 3, -2); // slide the head ref block down (for better glow)
+        // animations.actions.Typing.crossFadeTo(animations.actions.Typing, 1, false);
+        //setPrevAction('StandingIdle');
+        //setAction('StandToSit');
+      }
+    },
+    Typing: () => {
+      setTimeout(() => {
+        animations.actions.StandingIdle.play();
+      });
+    },
+  };
 
   useEffect(() => {
-    const animation = actions['Armature|mixamo.com|Layer0'];
-    animation?.play();
-  }, [actions]);
+    animate.StandingIdle();
+    // also a 'loop' listener
+    animations.mixer.addEventListener('finished', (e: any) => {
+      // console.log('Loop finished!', e);
+      if (e.action._clip.name === 'Typing') {
+        sound3.stop();
+      }
+    });
+  }, []);
 
   useFrame((state, delta) => {
     group.current.position.y = Math.cos(state.clock.elapsedTime) * 0.42;
-    group.current.rotation.y = Math.cos(state.clock.elapsedTime) * 0.03;
-    spotlight.current.target = devHead.current;
+    group.current.rotation.y = Math.cos(state.clock.elapsedTime) * 0.05;
+    spotlight.current.target = devHead.current; // keep spotlight tracked on dev head.
   });
 
-  const texture = useVideoTexture('/coding.mp4');
+  const onClickDev = () => {
+    animate.StandToSit();
+  };
 
   return (
-    <group ref={group}>
+    <group ref={group} onClick={onClickDev}>
+      {/* Astronaut dev head reference (for glow light)*/}
       <mesh ref={devHead} receiveShadow position={[0, 5, -2]}>
         <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
-        <meshStandardMaterial />
+        <meshStandardMaterial opacity={0} transparent />
       </mesh>
+      {/* Astronaut dev */}
       <primitive ref={devRef} object={dev.scene} scale={150} position={[0, 1.55, -1.85]} />
+      {/* Paddle desk */}
       <primitive object={paddle} scale={0.05} position={[-1.5, 2.75, 0.25]} rotation={[0, Math.PI / 2, 0]} />
+      {/* Laptop glow */}
       <SpotLight
+        castShadow
         ref={spotlight}
         color="blue"
-        castShadow
         position={[0.1, 4, 1.9]}
-        penumbra={5}
-        distance={5}
-        attenuation={0.1}
-        anglePower={2}
-        intensity={5}
+        penumbra={3}
+        distance={4}
+        attenuation={0.01}
+        anglePower={5}
+        intensity={3}
         target={devHead.current}
       />
-      <mesh scale={5} position={[0.1, 3.8, 1.9]} rotation={[Math.PI / 12, 0, 0]}>
+      {/* Matrix mp4 */}
+      <mesh scale={5} position={[0.1, 3.91, 1.92]} rotation={[Math.PI / 12, 0, 0]}>
         <boxGeometry attach="geometry" args={[0.55, 0.4, 0.01]} />
         <meshBasicMaterial map={texture} toneMapped={false} />
       </mesh>
-
+      {/* Laptop */}
       <primitive object={macbook} scale={0.015} position={[-2.75, 3.9, -3]} rotation={[0, 2.63, 0]} />
+      {/* Row boat */}
       <primitive object={boat} scale={0.05} position={[0, -1.5, 0]} />
     </group>
   );
@@ -196,18 +260,6 @@ const Rocket = () => {
   return (
     <group ref={group} position={[50, 0, 50]} rotation={[Math.PI / 2, Math.PI / 8, 0]}>
       <primitive object={rocket.scene} scale={2} />
-    </group>
-  );
-};
-
-const Boombox = () => {
-  const fbx = useLoader(FBXLoader, '/models/boombox.fbx');
-
-  const group = useRef<any>();
-
-  return (
-    <group ref={group}>
-      <primitive object={fbx} scale={0.01} />
     </group>
   );
 };
@@ -240,18 +292,7 @@ const OceanW = () => {
   const sound2 = new THREE.Audio(listener2);
   const audioLoader2 = new THREE.AudioLoader();
 
-  const listener3 = new THREE.AudioListener();
-  const sound3 = new THREE.Audio(listener3);
-  const audioLoader3 = new THREE.AudioLoader();
-
   const onClickMesh = () => {
-    audioLoader3.load('WesTypingClicking.mp3', function (buffer) {
-      sound3.setBuffer(buffer);
-      sound3.setLoop(true);
-      sound3.setVolume(0.1);
-      sound3.play();
-    });
-
     audioLoader.load('music.mp3', function (buffer) {
       sound.setBuffer(buffer);
       sound.setLoop(true);
@@ -278,16 +319,17 @@ export default function App() {
   };
 
   const orbitOpts = {
-    autoRotate: true,
+    autoRotate: false,
     autoRotateSpeed: -0.42,
-    enablePan: true,
+    enablePan: false,
+    enableRotate: false,
     screenSpacePanning: false,
     distance: 70,
     maxDistance: 70,
-    minDistance: 50,
-    angle: 1.41,
-    minPolarAngle: 1.41,
-    maxPolarAngle: 1.41,
+    minDistance: 70,
+    angle: 1.42,
+    minPolarAngle: 1.42,
+    maxPolarAngle: 1.42,
   };
 
   return (
@@ -296,12 +338,14 @@ export default function App() {
       <Canvas style={{ height: '100vh' }} onMouseMove={onMove} shadows>
         <ambientLight intensity={0.1} />
         <OrbitControls {...orbitOpts} />
-        <pointLight position={[200, 9, -500]} intensity={0.25} />
-        <Sky sunPosition={[200, 9, -500]} turbidity={1} azimuth={50} rayleigh={3} />
-        {/*<axesHelper args={[50]} />*/}
+        <pointLight position={[200, 9, 500]} intensity={0.25} />
+        <Sky sunPosition={[200, 9, 500]} turbidity={1} azimuth={50} rayleigh={3} />
+        <axesHelper args={[50]} />
         <Camera />
         <Suspense fallback={null}>
-          <Scene2 />
+          <ScrollControls pages={2}>
+            <Scene2 />
+          </ScrollControls>
         </Suspense>
       </Canvas>
     </>

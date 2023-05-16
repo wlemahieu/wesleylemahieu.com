@@ -38,7 +38,7 @@ const Camera: React.FC<any> = (props: any) => {
       makeDefault
       ref={ref}
       fov={20}
-      position={[-20, 80, 30]}
+      position={[-20, 80, -45]}
       aspect={window.innerWidth / window.innerHeight}
       near={1}
       far={1000}
