@@ -140,9 +140,14 @@ h2 {
 a:visited,
 a:active,
 a {
+  text-decoration: none;
   color: black;
 }
 a:hover {
   color: #392759;
   opacity: 0.8;
+}
+
+.scroll > a {
+  color: goldenrod;
 }
