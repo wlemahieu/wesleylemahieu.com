@@ -18,12 +18,24 @@ body,
   overflow: auto;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .scroll {
   position: absolute;
   top: 0;
   left: 0;
   overflow-y: auto;
   scroll-snap-type: y proximity;
+  opacity: 0;
+  touch-action: none;
+  animation: fade-in 3s ease 0.5s forwards;
 }
 
 .scroll > div {
@@ -45,9 +57,8 @@ body {
   top: 0px;
   display: inline-block;
   max-width: 600px;
-  padding: 0;
-  padding: 8vh 0 0 10vw;
-  color: lightskyblue;
+  padding: 11vh 8vw;
+  color: aquamarine;
   line-height: 1.6em;
   font-size: 15px;
   letter-spacing: 1.5px;
@@ -65,11 +76,9 @@ body {
 }
 
 .dot > h1 {
-  font-size: 5em;
 }
 
 .dot > h2 {
-  font-size: 3em;
   padding-left: 0.075em;
 }
 
@@ -77,36 +86,12 @@ body {
   padding-left: 0.5em;
 }
 
-@media only screen and (max-width: 1000px) {
-  .caption {
-    font-size: 4em;
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .caption {
-    font-size: 3em;
-  }
+@media only screen and (max-width: 768px) {
   .dot > h1 {
-    font-size: 3em;
+    font-size: 2.6em;
   }
-}
-
-@media only screen and (max-width: 700px) {
-  .caption {
-    font-size: 2em;
-  }
-  .dot > h1 {
-    font-size: 3em;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .caption {
-    font-size: 1em;
-  }
-  .dot > h1 {
-    font-size: 3em;
+  .dot > h2 {
+    font-size: 2.6em;
   }
 }
 
@@ -117,7 +102,7 @@ h1 {
 }
 
 h2 {
-  font-size: 4em;
+  font-size: 3em;
   letter-spacing: 0.25px;
   line-height: 4rem;
 }
@@ -135,6 +120,33 @@ a:hover {
 
 .scroll > a {
   color: goldenrod;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.topbar {
+  font-size: 17px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 25px;
+  padding-top: 14px;
+  display: flex;
+  column-gap: 2;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  touch-action: none;
+  animation: fade-in 3s ease 0.5s forwards;
+  z-index: 2;
 }
 
 @keyframes fade-in {

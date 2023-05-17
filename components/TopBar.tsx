@@ -10,21 +10,7 @@ const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
   };
 
   return (
-    <div
-      style={{
-        fontSize: '17px',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '25px',
-        paddingTop: '14px',
-        display: 'flex',
-        columnGap: 2,
-        justifyContent: 'center',
-        textAlign: 'center',
-      }}
-    >
+    <div className="topbar">
       <ul
         style={{
           fontWeight: 'bold',
