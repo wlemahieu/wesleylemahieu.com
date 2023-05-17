@@ -73,7 +73,7 @@ const Dev = ({ scroll }: { scroll: number }) => {
         audioLoader3.load('WesTypingClicking.mp3', function (buffer) {
           sound3.setBuffer(buffer);
           sound3.setLoop(true);
-          sound3.setVolume(0.2);
+          sound3.setVolume(0.15);
           sound3.play();
         });
         animations.actions.Typing.play();
@@ -122,7 +122,7 @@ const Dev = ({ scroll }: { scroll: number }) => {
   useEffect(() => {
     if (!init && scroll > 0) {
       console.log('Start music and waves...');
-      audioLoader.load('music.mp3', function (buffer) {
+      audioLoader.load('music.mov', function (buffer) {
         sound.setBuffer(buffer);
         sound.setLoop(true);
         sound.setPlaybackRate(0.75);
