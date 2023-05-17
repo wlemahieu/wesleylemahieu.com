@@ -9,19 +9,9 @@
 
 import * as THREE from 'three';
 import { useRef, useMemo, useEffect, useState } from 'react';
-import {
-  Html,
-  useAnimations,
-  Cloud,
-  ScrollControls,
-  Sky,
-  SpotLight,
-  useVideoTexture,
-  useScroll,
-} from '@react-three/drei';
-import { Canvas, extend, useFrame, useThree } from '@react-three/fiber';
+import { Html, useAnimations, Sky, SpotLight, useVideoTexture, useGLTF } from '@react-three/drei';
+import { Canvas, Props, extend, useFrame, useThree } from '@react-three/fiber';
 import '@css/styles.css';
-import Link from 'next/link';
 import { Suspense } from 'react';
 import Camera from '@helpers/Camera';
 import useIsMobile from '@hooks/useIsMobile';
@@ -32,6 +22,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Water } from 'three-stdlib';
 
 extend({ Water });
+
+useGLTF.preload('/models/astronaut.glb');
 
 declare global {
   namespace JSX {
@@ -75,7 +67,13 @@ const ContactForm = () => {
   );
 };
 
-const Overlay = () => {
+const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
+  const [state, setState] = soundState;
+
+  const onSound = (action: string) => {
+    setState(action);
+  };
+
   return (
     <div
       style={{
@@ -101,7 +99,6 @@ const Overlay = () => {
           display: 'flex',
           zIndex: 1,
           columnGap: '1rem',
-          opacity: 0.75,
         }}
       >
         <li>
@@ -120,24 +117,73 @@ const Overlay = () => {
           </Link>
         </li>
         {/*
-        <li>&#9658;</li>
-      <li>&#9208;</li>*/}
+        <li>
+          {state === 'play' ? (
+            <Image src="/volume.png" alt="Disable sound" width={24} height={24} onClick={() => onSound('mute')} />
+          ) : null}
+          {state === 'mute' ? (
+            <Image src="/mute.png" alt="Enable sound" width={24} height={24} onClick={() => onSound('play')} />
+          ) : null}
+        </li>
+          */}
       </ul>
     </div>
   );
 };
 
-const Scene2 = () => {
+const Scene2 = ({ scrollState }: Partial<PropsI>) => {
+  const [scroll] = scrollState;
   return (
     <>
-      <Dev />
+      <Dev scroll={scroll} />
       <Rocket />
       <OceanW />
     </>
   );
 };
 
-const Dev = () => {
+import React, { forwardRef } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+interface PropsI {
+  caption: any;
+  scrollState: any;
+}
+
+// eslint-disable-next-line react/display-name
+const Overlay = forwardRef((props: PropsI, ref: any) => {
+  const { caption, scrollState } = props;
+
+  const [scroll, setScroll] = scrollState;
+
+  const onScroll = (e: any) => {
+    setScroll(e.target.scrollTop / (e.target.scrollHeight - window.innerHeight));
+    if (caption.current) {
+      caption.current.innerText = scroll.toFixed(2);
+    }
+  };
+
+  return (
+    <div ref={ref} onScroll={onScroll} className="scroll">
+      <div style={{ height: '100vh' }}>
+        <div className="dot">
+          <h1>Hello.</h1>
+          <h2>My name is Wesley.</h2>
+          <p>I'm passionate about user experience.</p>
+        </div>
+      </div>
+      <div style={{ height: '100vh' }}></div>
+      {/* 
+      <span className="caption" ref={caption}>
+        0.00
+      </span>
+      */}
+    </div>
+  );
+});
+
+const Dev = ({ scroll }: { scroll: number }) => {
   const [started, setStarted] = useState(false);
   const boat = useLoader(FBXLoader, '/models/Wood_BoatV2.fbx');
   const paddle = useLoader(FBXLoader, '/models/Paddle.fbx');
@@ -151,11 +197,42 @@ const Dev = () => {
   const [action, setAction] = useState('StandingIdle');
   const [prevAction, setPrevAction] = useState('');
   const texture = useVideoTexture('/coding.mp4', { start: started });
-  const scroll = useScroll();
-
+  const [init, setInit] = useState(false);
   const listener3 = new THREE.AudioListener();
   const sound3 = new THREE.Audio(listener3);
   const audioLoader3 = new THREE.AudioLoader();
+  const listener = new THREE.AudioListener();
+  const sound = new THREE.Audio(listener) as any;
+  const audioLoader = new THREE.AudioLoader();
+
+  const listener2 = new THREE.AudioListener();
+  const sound2 = new THREE.Audio(listener2);
+  const audioLoader2 = new THREE.AudioLoader();
+
+  // console.log({ scroll, sound, sound2, audioLoader });
+
+  const onSound = (action: string) => {
+    if (action === 'mute') {
+      sound.setVolume(0);
+      sound2.setVolume(0);
+    } else if (action === 'play') {
+      audioLoader.load('music.mp3', function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setPlaybackRate(0.75);
+        sound.setVolume(0.15);
+        sound.play();
+      });
+
+      audioLoader2.load('waves.mp3', function (buffer) {
+        sound2.setBuffer(buffer);
+        sound2.setLoop(true);
+        sound2.setVolume(0.25);
+        sound2.play();
+      });
+    }
+  };
+
   // console.log('scroll', scroll);
   const animate: any = {
     StandingIdle: () => {
@@ -170,7 +247,7 @@ const Dev = () => {
         audioLoader3.load('WesTypingClicking.mp3', function (buffer) {
           sound3.setBuffer(buffer);
           sound3.setLoop(true);
-          sound3.setVolume(0.1);
+          sound3.setVolume(0.2);
           sound3.play();
         });
         animations.actions.Typing.play();
@@ -204,7 +281,38 @@ const Dev = () => {
     group.current.position.y = Math.cos(state.clock.elapsedTime) * 0.42;
     group.current.rotation.y = Math.cos(state.clock.elapsedTime) * 0.05;
     spotlight.current.target = devHead.current; // keep spotlight tracked on dev head.
+    // lerp new camera position on scroll
+    // original position [-20, 80, -45]
+    /*
+    const originalX = -27.70;
+    const lerpToX = scroll ? 20 * scroll : originalX;
+    const newXpos = THREE.MathUtils.lerp(state.camera.position.x, lerpToX, 0.05);
+    console.log({ scroll, newXpos, camera: state.camera.position });
+    state.camera.position.set(newXpos, state.camera.position.y, state.camera.position.z);
+    */
+    // state.camera.rotation.set(0, Math.PI / 2, Math.PI / 8);
   });
+
+  useEffect(() => {
+    if (!init && scroll > 0) {
+      audioLoader.load('music.mp3', function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setPlaybackRate(0.75);
+        sound.setVolume(0.15);
+        sound.play();
+      });
+
+      audioLoader2.load('waves.mp3', function (buffer) {
+        sound2.setBuffer(buffer);
+        sound2.setLoop(true);
+        sound2.setVolume(0.25);
+        sound2.play();
+      });
+      setInit(true);
+      animate.StandToSit();
+    }
+  }, [scroll, init]);
 
   const onClickDev = () => {
     animate.StandToSit();
@@ -284,40 +392,12 @@ const OceanW = () => {
     }),
     [waterNormals],
   );
-  const listener = new THREE.AudioListener();
-  const sound = new THREE.Audio(listener);
-  const audioLoader = new THREE.AudioLoader();
-
-  const listener2 = new THREE.AudioListener();
-  const sound2 = new THREE.Audio(listener2);
-  const audioLoader2 = new THREE.AudioLoader();
-
-  const onClickMesh = () => {
-    audioLoader.load('music.mp3', function (buffer) {
-      sound.setBuffer(buffer);
-      sound.setLoop(true);
-      sound.setPlaybackRate(0.75);
-      sound.setVolume(0.05);
-      sound.play();
-    });
-
-    audioLoader2.load('waves.mp3', function (buffer) {
-      sound2.setBuffer(buffer);
-      sound2.setLoop(true);
-      sound2.setVolume(0.1);
-      sound2.play();
-    });
-  };
 
   useFrame((state, delta) => (ref.current.material.uniforms.time.value += delta));
-  return <water ref={ref} args={[geom, config]} rotation-x={-Math.PI / 2} onPointerDown={onClickMesh} />;
+  return <water ref={ref} args={[geom, config]} rotation-x={-Math.PI / 2} />;
 };
 
 export default function App() {
-  const onMove = (e: any) => {
-    // console.log(e);
-  };
-
   const orbitOpts = {
     autoRotate: false,
     autoRotateSpeed: -0.42,
@@ -332,10 +412,15 @@ export default function App() {
     maxPolarAngle: 1.42,
   };
 
+  const overlay = useRef();
+  const caption = useRef();
+  const scrollState = useState(0);
+  const soundState = useState('mute');
+
   return (
     <>
-      <Overlay />
-      <Canvas style={{ height: '100vh' }} onMouseMove={onMove} shadows>
+      <TopBar soundState={soundState} />
+      <Canvas shadows style={{ height: '100vh' }}>
         <ambientLight intensity={0.2} />
         <OrbitControls {...orbitOpts} />
         <pointLight position={[200, 9, 500]} intensity={0.25} />
@@ -343,11 +428,10 @@ export default function App() {
         <axesHelper args={[50]} visible={false} />
         <Camera />
         <Suspense fallback={null}>
-          <ScrollControls pages={2}>
-            <Scene2 />
-          </ScrollControls>
+          <Scene2 scrollState={scrollState} />
         </Suspense>
       </Canvas>
+      <Overlay ref={overlay} caption={caption} scrollState={scrollState} />
     </>
   );
 }
