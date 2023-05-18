@@ -23,7 +23,6 @@ function Loader() {
 
 export default function App() {
   const overlay = useRef();
-  const caption = useRef();
   const scrollState = useState(0);
   const soundState = useState('mute');
   const { progress } = useProgress();
@@ -37,13 +36,13 @@ export default function App() {
           <ambientLight intensity={0.2} />
           <pointLight position={[200, 9, 500]} intensity={0.25} />
           <Sky sunPosition={[200, 9, 500]} turbidity={1} azimuth={50} rayleigh={3} />
-          <Scene scrollState={scrollState} />
+          <Scene scrollState={scrollState} soundState={soundState} />
         </Suspense>
       </Canvas>
       {progress === 100 ? (
         <>
           <TopBar soundState={soundState} />
-          <Overlay ref={overlay} caption={caption} scrollState={scrollState} />
+          <Overlay ref={overlay} scrollState={scrollState} soundState={soundState} />
         </>
       ) : null}
     </>

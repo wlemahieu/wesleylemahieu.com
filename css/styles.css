@@ -34,7 +34,6 @@ body,
   overflow-y: auto;
   scroll-snap-type: y proximity;
   opacity: 0;
-  touch-action: none;
   animation: fade-in 3s ease 0.5s forwards;
 }
 
@@ -122,15 +121,6 @@ a:hover {
   color: goldenrod;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .topbar {
   font-size: 17px;
   position: absolute;
@@ -147,15 +137,6 @@ a:hover {
   touch-action: none;
   animation: fade-in 3s ease 0.5s forwards;
   z-index: 2;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 canvas {

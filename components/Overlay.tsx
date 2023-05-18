@@ -1,28 +1,26 @@
 'use client';
 
-import Link from 'next/link';
 import { forwardRef } from 'react';
 
 interface PropsI {
-  caption: any;
   scrollState: any;
+  soundState: any;
 }
 
 // eslint-disable-next-line react/display-name
 const Overlay = forwardRef((props: PropsI, ref: any) => {
-  const { caption, scrollState } = props;
-
-  const [scroll, setScroll] = scrollState;
+  const { scrollState, soundState } = props;
+  const [, setSoundState] = soundState;
+  const onClickScreen = () => {
+    setSoundState('play');
+  };
+  const [, setScroll] = scrollState;
 
   const onScroll = (e: any) => {
     setScroll(e.target.scrollTop / (e.target.scrollHeight - window.innerHeight));
-    if (caption.current) {
-      caption.current.innerText = scroll.toFixed(2);
-    }
   };
-
   return (
-    <div ref={ref} onScroll={onScroll} className="scroll">
+    <div ref={ref} onScroll={onScroll} className="scroll" onMouseDown={onClickScreen}>
       <div style={{ height: '100vh' }}>
         <div className="dot">
           <h1>Hello.</h1>
@@ -46,11 +44,6 @@ const Overlay = forwardRef((props: PropsI, ref: any) => {
           </ul>
         </div>
       </div>
-      {/** 
-      <span className="caption" ref={caption}>
-        0.00
-      </span>
-      */}
     </div>
   );
 });

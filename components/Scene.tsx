@@ -7,13 +7,15 @@ import Dev from '@components/Dev';
 interface PropsI {
   caption: any;
   scrollState: any;
+  soundState: any;
 }
 
-const Scene = ({ scrollState }: Partial<PropsI>) => {
+const Scene = ({ scrollState, soundState }: Partial<PropsI>) => {
   const [scroll] = scrollState;
+  const [sound] = soundState;
   return (
     <>
-      <Dev scroll={scroll} />
+      <Dev scroll={scroll} sound={sound} />
       <Rocket />
       <Ocean />
     </>

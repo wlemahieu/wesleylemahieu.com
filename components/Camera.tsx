@@ -35,13 +35,10 @@ const Camera: React.FC<any> = ({ scrollState }: any) => {
 
   useFrame((state, delta) => {
     if (scroll >= 0.4 && scroll < 0.9) {
-      console.log('a');
       state.camera.position.lerp(dummy.set(-40, 20, 20), lerpStep);
     } else if (scroll >= 0.9) {
-      console.log('b');
       state.camera.position.lerp(dummy.set(160, 30, 160), lerpStep);
     } else {
-      console.log('c');
       // original position
       // state.camera.set
 

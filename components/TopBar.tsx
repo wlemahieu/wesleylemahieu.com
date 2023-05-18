@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
@@ -37,16 +38,22 @@ const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
             Stack
           </Link>
         </li>
-        {/*
+
         <li>
           {state === 'play' ? (
-            <Image src="/volume.png" alt="Disable sound" width={24} height={24} onClick={() => onSound('mute')} />
+            <Image
+              src="/volume.png"
+              priority
+              alt="Disable sound"
+              width={16}
+              height={16}
+              onClick={() => onSound('mute')}
+            />
           ) : null}
           {state === 'mute' ? (
-            <Image src="/mute.png" alt="Enable sound" width={24} height={24} onClick={() => onSound('play')} />
+            <Image src="/mute.png" priority alt="Enable sound" width={16} height={16} onClick={() => onSound('play')} />
           ) : null}
         </li>
-          */}
       </ul>
     </div>
   );

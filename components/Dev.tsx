@@ -9,7 +9,7 @@ import { useLoader } from '@react-three/fiber';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-const Dev = ({ scroll }: { scroll: number }) => {
+const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
   const [started, setStarted] = useState(false);
   const boat = useLoader(FBXLoader, '/models/Wood_BoatV2.fbx');
   const paddle = useLoader(FBXLoader, '/models/Paddle.fbx');
@@ -24,42 +24,22 @@ const Dev = ({ scroll }: { scroll: number }) => {
   const [prevAction, setPrevAction] = useState('');
   const texture = useVideoTexture('/coding.mp4', { start: started });
   const [init, setInit] = useState(false);
+  const [music] = useState(new Audio('/music.mov'));
+  const [waves] = useState(new Audio('/waves.mp3'));
+  const [working] = useState(new Audio('/WesTypingClicking.mp3'));
+
   const listener3 = new THREE.AudioListener();
   const sound3 = new THREE.Audio(listener3);
   const audioLoader3 = new THREE.AudioLoader();
+
   const listener = new THREE.AudioListener();
-  const sound = new THREE.Audio(listener) as any;
+  const sound1 = new THREE.Audio(listener) as any;
   const audioLoader = new THREE.AudioLoader();
 
   const listener2 = new THREE.AudioListener();
   const sound2 = new THREE.Audio(listener2);
   const audioLoader2 = new THREE.AudioLoader();
 
-  // console.log({ scroll, sound, sound2, audioLoader });
-
-  const onSound = (action: string) => {
-    if (action === 'mute') {
-      sound.setVolume(0);
-      sound2.setVolume(0);
-    } else if (action === 'play') {
-      audioLoader.load('music.mp3', function (buffer) {
-        sound.setBuffer(buffer);
-        sound.setLoop(true);
-        sound.setPlaybackRate(0.75);
-        sound.setVolume(0.15);
-        sound.play();
-      });
-
-      audioLoader2.load('waves.mp3', function (buffer) {
-        sound2.setBuffer(buffer);
-        sound2.setLoop(true);
-        sound2.setVolume(0.25);
-        sound2.play();
-      });
-    }
-  };
-
-  // console.log('scroll', scroll);
   const animate: any = {
     StandingIdle: () => {
       animations.actions.StandingIdle.play();
@@ -70,12 +50,6 @@ const Dev = ({ scroll }: { scroll: number }) => {
         setStarted(true);
         animations.actions.StandingIdle.crossFadeTo(animations.actions.Typing, 0.4, false);
         animations.actions.Typing.setLoop(THREE.LoopOnce);
-        audioLoader3.load('WesTypingClicking.mp3', function (buffer) {
-          sound3.setBuffer(buffer);
-          sound3.setLoop(true);
-          sound3.setVolume(0.15);
-          sound3.play();
-        });
         animations.actions.Typing.play();
         //animations.actions.Typing.crossFadeTo(animations.actions.StandingIdle, 0.75, false);
         //animations.actions.StandingIdle.play();
@@ -92,54 +66,75 @@ const Dev = ({ scroll }: { scroll: number }) => {
     },
   };
 
+  document.addEventListener('visibilitychange', visChngF);
+  function visChngF() {
+    if (document.hidden) {
+      stopSounds();
+    } else {
+      startSounds();
+    }
+  }
+
+  const startSounds = () => {
+    music.playbackRate = 0.9;
+    music.loop = true;
+    music.volume = 0.15;
+    music.play();
+
+    waves.loop = true;
+    waves.volume = 0.3;
+    waves.play();
+
+    working.loop = true;
+    working.volume = 0.1;
+    working.play();
+  };
+
+  const stopSounds = () => {
+    music.pause();
+    waves.pause();
+    working.pause();
+  };
+
+  const startAnimations = () => {
+    animate.StandToSit();
+  };
+
   useEffect(() => {
     animate.StandingIdle();
     // also a 'loop' listener
     animations.mixer.addEventListener('finished', (e: any) => {
       // console.log('Loop finished!', e);
+      /*
       if (e.action._clip.name === 'Typing') {
         sound3.stop();
-      }
+      }*/
     });
   }, []);
+
+  useEffect(() => {
+    if (sound === 'mute') {
+      stopSounds();
+      // stop sounds
+    } else if (sound === 'play') {
+      startSounds();
+      startAnimations();
+    }
+  }, [sound]);
 
   useFrame((state, delta) => {
     group.current.position.y = Math.cos(state.clock.elapsedTime) * 0.42;
     group.current.rotation.y = Math.cos(state.clock.elapsedTime) * 0.05;
     spotlight.current.target = devHead.current; // keep spotlight tracked on dev head.
-    // lerp new camera position on scroll
-    // original position [-20, 80, -45]
-    /*
-    const originalX = -27.70;
-    const lerpToX = scroll ? 20 * scroll : originalX;
-    const newXpos = THREE.MathUtils.lerp(state.camera.position.x, lerpToX, 0.05);
-    console.log({ scroll, newXpos, camera: state.camera.position });
-    state.camera.position.set(newXpos, state.camera.position.y, state.camera.position.z);
-    */
-    // state.camera.rotation.set(0, Math.PI / 2, Math.PI / 8);
   });
 
   useEffect(() => {
-    if (!init && scroll > 0) {
-      console.log('Start music and waves...');
-      audioLoader.load('music.mov', function (buffer) {
-        sound.setBuffer(buffer);
-        sound.setLoop(true);
-        sound.setPlaybackRate(0.75);
-        sound.setVolume(0.2);
-        sound.play();
-      });
-
-      audioLoader2.load('waves.mp3', function (buffer) {
-        sound2.setBuffer(buffer);
-        sound2.setLoop(true);
-        sound2.setVolume(0.3);
-        sound2.play();
-      });
+    if (scroll > 0 && !init) {
       setInit(true);
-      animate.StandToSit();
+      startSounds();
+      startAnimations();
     }
-  }, [scroll, init]);
+  }, [scroll]);
 
   const onClickDev = () => {
     animate.StandToSit();
