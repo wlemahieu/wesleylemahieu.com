@@ -35,7 +35,7 @@ const Overlay = () => {
             <div style={{ height: '100vh' }}>
               <div className="dot">
                 <h1>Technical Skills.</h1>
-                <p>Next.js, React.js, Three.js, MySQL, GCP</p>
+                <p>Typescript, Javascript, Next.js, React.js, Three.js, Node.js, MySQL, PostgreSQL, GCP & more</p>
               </div>
             </div>
             <div style={{ height: '100vh' }}>
