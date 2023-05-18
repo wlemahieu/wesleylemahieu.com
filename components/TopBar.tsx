@@ -40,20 +40,25 @@ const TopBar = () => {
           </Link>
         </li>
 
-        <li>
-          {sound === 'play' ? (
-            <Image
-              src="/volume.png"
-              priority
-              alt="Disable sound"
-              width={16}
-              height={16}
-              onClick={() => onSound('mute')}
-            />
-          ) : null}
-          {sound === 'mute' || sound === 'mutes' ? (
-            <Image src="/mute.png" priority alt="Enable sound" width={16} height={16} onClick={() => onSound('play')} />
-          ) : null}
+        <li className="link">
+          <Image
+            src="/volume.png"
+            priority
+            alt="Disable sound"
+            width={16}
+            height={16}
+            onClick={() => onSound('mute')}
+            style={{ display: sound === 'play' ? 'inline-block' : 'none' }}
+          />
+          <Image
+            src="/mute.png"
+            priority
+            alt="Enable sound"
+            width={16}
+            height={16}
+            onClick={() => onSound('play')}
+            style={{ display: sound === 'mute' ? 'inline-block' : 'none' }}
+          />
         </li>
       </ul>
     </div>

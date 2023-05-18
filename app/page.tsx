@@ -12,7 +12,6 @@ import Loader from '@components/Loader';
 useGLTF.preload('/models/astronaut.glb');
 
 export default function App() {
-  console.log('App INIT');
   return (
     <>
       <Canvas shadows style={{ height: '100vh' }}>
