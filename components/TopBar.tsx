@@ -1,14 +1,15 @@
 'use client';
 
+import useStateStore from '@hooks/useStateStore';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
-const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
-  const [state, setState] = soundState;
+const TopBar = () => {
+  const sound = useStateStore((state: any) => state.sound);
+  const setSound = useStateStore((state: any) => state.setSound);
 
-  const onSound = (action: string) => {
-    setState(action);
-  };
+  const onSound = (action: string) => setSound(action);
 
   return (
     <div className="topbar">
@@ -40,7 +41,7 @@ const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
         </li>
 
         <li>
-          {state === 'play' ? (
+          {sound === 'play' ? (
             <Image
               src="/volume.png"
               priority
@@ -50,7 +51,7 @@ const TopBar = ({ soundState }: Partial<{ soundState: any }>) => {
               onClick={() => onSound('mute')}
             />
           ) : null}
-          {state === 'mute' ? (
+          {sound === 'mute' || sound === 'mutes' ? (
             <Image src="/mute.png" priority alt="Enable sound" width={16} height={16} onClick={() => onSound('play')} />
           ) : null}
         </li>

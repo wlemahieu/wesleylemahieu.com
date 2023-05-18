@@ -6,10 +6,7 @@ import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const Rocket = () => {
-  const rocket = useLoader(GLTFLoader, '/models/rocket.glb', undefined, (xhr) => {
-    console.log(xhr);
-    console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-  });
+  const rocket = useLoader(GLTFLoader, '/models/rocket.glb');
   //console.log('rocket', rocket);
   const group = useRef<any>();
 

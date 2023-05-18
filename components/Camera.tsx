@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { useRef, useEffect, useState } from 'react';
 import { PerspectiveCamera, useHelper } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
+import useStateStore from '@hooks/useStateStore';
 
 const direction = new THREE.Vector3(0, 0, 0);
 const center = new THREE.Vector3(0, 3, 0);
@@ -12,8 +13,8 @@ const q3 = new THREE.Quaternion();
 const dummy = new THREE.Vector3();
 const lookAtPos = new THREE.Vector3();
 
-const Camera: React.FC<any> = ({ scrollState }: any) => {
-  const [scroll] = scrollState;
+const Camera: React.FC<any> = () => {
+  const scroll = useStateStore((state: any) => state.scroll);
   const [prevScroll, setPrevScroll] = useState(scroll);
   const ref = useRef<any>(null);
   const set = useThree((state) => state.set);

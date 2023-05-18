@@ -8,8 +8,11 @@ import { useFrame } from '@react-three/fiber';
 import { useLoader } from '@react-three/fiber';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import useStateStore from '@hooks/useStateStore';
 
-const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
+const Dev = () => {
+  const scroll = useStateStore((state: any) => state.scroll);
+  const sound = useStateStore((state: any) => state.sound);
   const [started, setStarted] = useState(false);
   const boat = useLoader(FBXLoader, '/models/Wood_BoatV2.fbx');
   const paddle = useLoader(FBXLoader, '/models/Paddle.fbx');
@@ -28,18 +31,6 @@ const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
   const [waves] = useState(new Audio('/waves.mp3'));
   const [working] = useState(new Audio('/WesTypingClicking.mp3'));
 
-  const listener3 = new THREE.AudioListener();
-  const sound3 = new THREE.Audio(listener3);
-  const audioLoader3 = new THREE.AudioLoader();
-
-  const listener = new THREE.AudioListener();
-  const sound1 = new THREE.Audio(listener) as any;
-  const audioLoader = new THREE.AudioLoader();
-
-  const listener2 = new THREE.AudioListener();
-  const sound2 = new THREE.Audio(listener2);
-  const audioLoader2 = new THREE.AudioLoader();
-
   const animate: any = {
     StandingIdle: () => {
       animations.actions.StandingIdle.play();
@@ -49,7 +40,7 @@ const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
       if (!started) {
         setStarted(true);
         animations.actions.StandingIdle.crossFadeTo(animations.actions.Typing, 0.4, false);
-        animations.actions.Typing.setLoop(THREE.LoopOnce);
+        // animations.actions.Typing.setLoop(THREE.LoopOnce);
         animations.actions.Typing.play();
         //animations.actions.Typing.crossFadeTo(animations.actions.StandingIdle, 0.75, false);
         //animations.actions.StandingIdle.play();
@@ -66,28 +57,34 @@ const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
     },
   };
 
-  document.addEventListener('visibilitychange', visChngF);
-  function visChngF() {
-    if (document.hidden) {
-      stopSounds();
-    } else {
-      startSounds();
+  useEffect(() => {
+    document.addEventListener('visibilitychange', visChngF);
+    function visChngF() {
+      if (document.hidden) {
+        stopSounds();
+      } else {
+        startSounds();
+      }
     }
-  }
+    return () => {
+      document.removeEventListener('visibilitychange', visChngF);
+    };
+  }, [sound]);
 
   const startSounds = () => {
-    music.playbackRate = 0.9;
-    music.loop = true;
-    music.volume = 0.15;
-    music.play();
+    if (sound === 'play') {
+      music.loop = true;
+      music.volume = 0.15;
+      music.play();
 
-    waves.loop = true;
-    waves.volume = 0.3;
-    waves.play();
+      waves.loop = true;
+      waves.volume = 0.3;
+      waves.play();
 
-    working.loop = true;
-    working.volume = 0.1;
-    working.play();
+      working.loop = true;
+      working.volume = 0.1;
+      working.play();
+    }
   };
 
   const stopSounds = () => {
@@ -114,9 +111,11 @@ const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
 
   useEffect(() => {
     if (sound === 'mute') {
-      stopSounds();
-      // stop sounds
+      if (init) {
+        stopSounds();
+      }
     } else if (sound === 'play') {
+      setInit(true);
       startSounds();
       startAnimations();
     }
@@ -131,7 +130,6 @@ const Dev = ({ scroll, sound }: { scroll: number; sound: any }) => {
   useEffect(() => {
     if (scroll > 0 && !init) {
       setInit(true);
-      startSounds();
       startAnimations();
     }
   }, [scroll]);
